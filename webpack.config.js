@@ -1,12 +1,12 @@
-const path = require('path');
+import path from 'path';
 
-module.exports = {
+export default {
     mode: 'production',
     entry: './src/jsFormValidation.js',
     output: {
         filename: 'index.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(path.resolve(), 'dist'),
         library: 'jsFormValidation',
         libraryTarget: 'commonjs2'
     },
-}
+};

@@ -1,7 +1,7 @@
-import rules from './components/validationRulesGenerators';
-import validateField from './components/validateField';
-import getFieldsToValidateFromForm from './components/getFieldsToValidateFromForm';
-import defaultOptions from './components/options';
+import rules from './components/validationRulesGenerators.js';
+import validateField from './components/validateField.js';
+import getFieldsToValidateFromForm from './components/getFieldsToValidateFromForm.js';
+import defaultOptions from './components/options.js';
 
 /**
  * Validates whole form, given as HTML element

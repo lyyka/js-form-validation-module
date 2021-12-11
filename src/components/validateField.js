@@ -1,6 +1,6 @@
-import defaultValidationMessages from './validationMessages';
-import validationFunctions from './validationFunctions';
-import CONFIG from '../config';
+import defaultValidationMessages from './validationMessages.js';
+import validationFunctions from './validationFunctions.js';
+import CONFIG from '../config.js';
 
 /**
  * Validate specific field

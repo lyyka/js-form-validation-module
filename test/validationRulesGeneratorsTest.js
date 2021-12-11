@@ -1,0 +1,98 @@
+import { assert, expect, use } from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+import rules from '../src/components/validationRulesGenerators.js';
+import CONFIG from '../src/config.js';
+use(sinonChai);
+
+describe('Test validation rules generation', function() {
+    before(() => {
+        sinon.stub(console, 'error');
+    });
+
+    it('Should render required', function() {
+        assert.equal(rules.required(), 'required');
+    });
+
+    it('Should render string', function() {
+        assert.equal(rules.string(), 'string');
+    });
+
+    it('Should render email', function() {
+        assert.equal(rules.email(), 'email');
+    });
+
+    it('Should render in rule if array is passed', function() {
+        assert.equal(rules.in(['a', 'b', 'c']), `in${CONFIG.parametrizedValidatorSeparator}a${CONFIG.parametrizedValidatorParametersSeparator}b${CONFIG.parametrizedValidatorParametersSeparator}c`);
+    });
+
+    it('Should render empty in rule if something other then array gets passed', function() {
+        const invalidValue = 2;
+        assert.equal(rules.in(invalidValue), '');
+        expect(console.error).to.be.calledWith(`${invalidValue} is not an array.`);
+    });
+
+    it('Should render between rule if array is passed', function() {
+        assert.equal(rules.between([-5, 5]), `between${CONFIG.parametrizedValidatorSeparator}-5${CONFIG.parametrizedValidatorParametersSeparator}5`);
+    });
+
+    it('Should render empty between rule if array with length other than 2 gets passed', function() {
+        const invalidValue = [1, 2, 3];
+        assert.equal(rules.between(invalidValue), '');
+        expect(console.error).to.be.calledWith(`Error creating a 'between' rule with values ${invalidValue}`);
+    });
+
+    it('Should render empty between rule if something other then array gets passed', function() {
+        const invalidValue = 2;
+        assert.equal(rules.between(invalidValue), '');
+        expect(console.error).to.be.calledWith(`Error creating a 'between' rule with values ${invalidValue}`);
+    });
+
+    it('Should render gt', function() {
+        const gt = rules.gt(2);
+        assert.equal(gt, `gt${CONFIG.parametrizedValidatorSeparator}2`);
+    });
+
+    it('Should render etmpy gt if value is NaN', function() {
+        const invalidValue = 'not a number';
+        const gt = rules.gt(invalidValue);
+        assert.equal(gt, '');
+        expect(console.error).to.be.calledWith(`Passing NaN value of '${invalidValue}' to gt()`);
+    });
+
+    it('Should render gte', function() {
+        const gte = rules.gte(2);
+        assert.equal(gte, `gte${CONFIG.parametrizedValidatorSeparator}2`);
+    });
+
+    it('Should render etmpy gte if value is NaN', function() {
+        const invalidValue = 'not a number';
+        const gte = rules.gte(invalidValue);
+        assert.equal(gte, '');
+        expect(console.error).to.be.calledWith(`Passing NaN value of '${invalidValue}' to gte()`);
+    });
+
+    it('Should render lt', function() {
+        const lt = rules.lt(2);
+        assert.equal(lt, `lt${CONFIG.parametrizedValidatorSeparator}2`);
+    });
+
+    it('Should render etmpy lt if value is NaN', function() {
+        const invalidValue = 'not a number';
+        const lt = rules.lt(invalidValue);
+        assert.equal(lt, '');
+        expect(console.error).to.be.calledWith(`Passing NaN value of '${invalidValue}' to lt()`);
+    });
+
+    it('Should render lte', function() {
+        const lte = rules.lte(2);
+        assert.equal(lte, `lte${CONFIG.parametrizedValidatorSeparator}2`);
+    });
+
+    it('Should render etmpy lt if value is NaN', function() {
+        const invalidValue = 'not a number';
+        const lte = rules.lte(invalidValue);
+        assert.equal(lte, '');
+        expect(console.error).to.be.calledWith(`Passing NaN value of '${invalidValue}' to lte()`);
+    });
+});

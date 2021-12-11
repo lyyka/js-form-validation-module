@@ -1,4 +1,4 @@
-import CONFIG from '../config';
+import CONFIG from '../config.js';
 
 const rules = {
     /**
@@ -26,7 +26,7 @@ const rules = {
      */
     in: (values) => {
         if(Array.isArray(values)) {
-            return `in${CONFIG.parametrizedValidatorSeparator}` + values.join(CONFIG.parametrizedValidatorSeparator);
+            return `in${CONFIG.parametrizedValidatorSeparator}` + values.join(CONFIG.parametrizedValidatorParametersSeparator);
         }
 
         console.error(`${values} is not an array.`);
@@ -40,7 +40,7 @@ const rules = {
      */
     between: (values) => {
         if(Array.isArray(values) && values.length == 2) {
-            return `between${CONFIG.parametrizedValidatorSeparator}` + values.join(CONFIG.parametrizedValidatorSeparator);
+            return `between${CONFIG.parametrizedValidatorSeparator}` + values.join(CONFIG.parametrizedValidatorParametersSeparator);
         }
 
         console.error(`Error creating a 'between' rule with values ${values}`);
@@ -53,6 +53,11 @@ const rules = {
      * @returns {String}
      */
     gt: (number) => {
+        if(isNaN(number)) {
+            console.error(`Passing NaN value of '${number}' to gt()`);
+            return '';
+        }
+
         return `gt${CONFIG.parametrizedValidatorSeparator}${number}`;
     },
 
@@ -62,6 +67,11 @@ const rules = {
      * @returns {String}
      */
     gte: (number) => {
+        if(isNaN(number)) {
+            console.error(`Passing NaN value of '${number}' to gte()`);
+            return '';
+        }
+
         return `gte${CONFIG.parametrizedValidatorSeparator}${number}`;
     },
 
@@ -71,6 +81,11 @@ const rules = {
      * @returns {String}
      */
     lt: (number) => {
+        if(isNaN(number)) {
+            console.error(`Passing NaN value of '${number}' to lt()`);
+            return '';
+        }
+
         return `lt${CONFIG.parametrizedValidatorSeparator}${number}`;
     },
 
@@ -80,6 +95,11 @@ const rules = {
      * @returns {String}
      */
     lte: (number) => {
+        if(isNaN(number)) {
+            console.error(`Passing NaN value of '${number}' to lte()`);
+            return '';
+        }
+
         return `lte${CONFIG.parametrizedValidatorSeparator}${number}`;
     },
 };
