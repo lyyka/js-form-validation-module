@@ -1,8 +1,8 @@
 /**
  * Gets all HTMLElement fields from form that need to be validated
  * This excludes unchecked checkboxes and radio buttons
- * @param {HTMLElement} form
- * @returns {HTMLElement[]} An array of elements
+ * @param {HTMLElement} form - HTMLElement object
+ * @returns {HTMLElement[]} An array of form elements that will go into the validation
  */
 const getFieldsToValidateFromForm = (form) => {
     const result = Array.from(form.querySelectorAll('[name]:not([type="checkbox"]):not([type="radio"])'));

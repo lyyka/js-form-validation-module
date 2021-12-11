@@ -4,8 +4,8 @@ import CONFIG from '../config';
 
 /**
  * Validate specific field
- * @param {HTMLElement} field Field to be validated
- * @param {Object} options
+ * @param {HTMLElement} field - HTMLElement field to be validated
+ * @param {Object} options - An options object to customize the validation process
  * @returns 
  */
 const validateField = (field, validationRules, options = {}) => {

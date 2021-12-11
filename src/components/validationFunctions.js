@@ -1,12 +1,8 @@
-/**
- * Get all validation functions
- * @returns Object
- */
 const validationFunctions = {
     /**
      * Checks if the value is not undefined/null/empty
-     * @param {*} value 
-     * @returns boolean
+     * @param {*} value
+     * @returns {boolean}
      */
     required: (value) => {
         return value !== undefined && value !== null && value !== '';
@@ -14,8 +10,8 @@ const validationFunctions = {
 
     /**
      * Checks if value is of type string
-     * @param {*} value 
-     * @returns boolean
+     * @param {*} value
+     * @returns {boolean}
      */
     string: (value) => {
         return typeof value === 'string';
@@ -24,7 +20,7 @@ const validationFunctions = {
     /**
      * Checks if value matches email regex
      * @param {*} value 
-     * @returns boolean
+     * @returns {boolean}
      */
     email: (value) => {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -35,7 +31,7 @@ const validationFunctions = {
      * Checks if value is in an array of other values
      * @param {*} value 
      * @param {Array} values 
-     * @returns boolean
+     * @returns {boolean}
      */
     in: (value, values) => {
         return values.includes(value);
@@ -45,7 +41,7 @@ const validationFunctions = {
      * Checks if the value is between two given values
      * @param {*} value 
      * @param {Array} values 
-     * @returns 
+     * @returns {boolean}
      */
     between: (value, values) => {
         const numVal = Number(value);
@@ -56,7 +52,7 @@ const validationFunctions = {
      * Checks if the value is strictly greater than the comparison value
      * @param {*} value 
      * @param {Number} comparisonValue 
-     * @returns 
+     * @returns {boolean}
      */
     gt: (value, comparisonValue) => {
         return Number(value) > comparisonValue;
@@ -66,7 +62,7 @@ const validationFunctions = {
      * Checks if the value is greater or equal than the comparison value
      * @param {*} value 
      * @param {Number} comparisonValue 
-     * @returns 
+     * @returns {boolean}
      */
     gte: (value, comparisonValue) => {
         return Number(value) >= comparisonValue;
@@ -76,7 +72,7 @@ const validationFunctions = {
      * Checks if the value is strictly less than the comparison value 
      * @param {*} value 
      * @param {Number} comparisonValue 
-     * @returns 
+     * @returns {boolean} 
      */
     lt: (value, comparisonValue) => {
         return Number(value) < comparisonValue;
@@ -86,7 +82,7 @@ const validationFunctions = {
      * Checks if the value is less or equal than the comparison value
      * @param {*} value 
      * @param {Number} comparisonValue 
-     * @returns 
+     * @returns {boolean}
      */
     lte: (value, comparisonValue) => {
         return Number(value) <= comparisonValue;

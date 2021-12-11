@@ -1,6 +1,3 @@
-/**
- * Defines default validation failure messages for each validation rule
- */
 const defaultValidationMessages = {
     'required': (fieldName) => `${fieldName} field is required`,
     'string': (fieldName) => `${fieldName} must be string`,

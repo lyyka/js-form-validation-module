@@ -1,8 +1,5 @@
 import CONFIG from '../config';
 
-/**
- * @returns {Object} An object that contains functions that generate validation rules strings
- */
 const rules = {
     /**
      * Genrate 'required' validation rule

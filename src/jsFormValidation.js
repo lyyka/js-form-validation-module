@@ -5,15 +5,17 @@ import defaultOptions from './components/options';
 
 /**
  * Validates whole form, given as HTML element
- * @param {HTMLElement} form 
- * @param {Object} validationRules 
- * @param {Object} options 
- * @returns 
+ * @param {HTMLElement} form - HTMLEelement form element
+ * @param {Object} validationRules - An object of validation rules to apply to fields
+ * @param {Object} options - An object of options to customize the validation
+ * @returns {Object} validationResult Result of the validation
+ * @returns {Array} validationResult.validFormFields An array of HTMLElement fields that passed the validation
+ * @returns {boolean} validationResult.formIsValid Boolean value that tells if the whole form was valid or not
  */
 const validateForm = (form, validationRules, options = {}) => {
     options = {
         ...options,
-        ...defaultOptions(),
+        ...defaultOptions,
     };
 
     const validFormFields = []; // Save an array of valid fields
