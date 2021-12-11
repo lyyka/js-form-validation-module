@@ -2,14 +2,14 @@
  * Get all validation functions
  * @returns Object
  */
- const validationFunctions = {
+const validationFunctions = {
     /**
      * Checks if the value is not undefined/null/empty
      * @param {*} value 
      * @returns boolean
      */
     required: (value) => {
-        return value !== undefined && value !== null && value !== "";
+        return value !== undefined && value !== null && value !== '';
     },
 
     /**
@@ -27,7 +27,6 @@
      * @returns boolean
      */
     email: (value) => {
-        // Code copied from: https://stackoverflow.com/a/46181
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(value).toLowerCase());
     },
@@ -43,33 +42,54 @@
     },
 
     /**
-     * Example fns
+     * Checks if the value is between two given values
+     * @param {*} value 
+     * @param {Array} values 
+     * @returns 
      */
-    
-    // Between two values
     between: (value, values) => {
         const numVal = Number(value);
         return numVal >= values[0] && numVal <= values[1];
     },
     
-    // Greater
+    /**
+     * Checks if the value is strictly greater than the comparison value
+     * @param {*} value 
+     * @param {Number} comparisonValue 
+     * @returns 
+     */
     gt: (value, comparisonValue) => {
-        return Number(value) > comparisonValue[0]
+        return Number(value) > comparisonValue;
     },
 
-    // Greater or equal
+    /**
+     * Checks if the value is greater or equal than the comparison value
+     * @param {*} value 
+     * @param {Number} comparisonValue 
+     * @returns 
+     */
     gte: (value, comparisonValue) => {
-        return Number(value) >= comparisonValue[0];
+        return Number(value) >= comparisonValue;
     },
     
-    // Less then
+    /**
+     * Checks if the value is strictly less than the comparison value 
+     * @param {*} value 
+     * @param {Number} comparisonValue 
+     * @returns 
+     */
     lt: (value, comparisonValue) => {
-        return Number(value) > comparisonValue[0];
+        return Number(value) < comparisonValue;
     },
 
-    // Less then or equal
+    /**
+     * Checks if the value is less or equal than the comparison value
+     * @param {*} value 
+     * @param {Number} comparisonValue 
+     * @returns 
+     */
     lte: (value, comparisonValue) => {
-        return Number(value) >= comparisonValue[0];
+        return Number(value) <= comparisonValue;
     },
 };
 
