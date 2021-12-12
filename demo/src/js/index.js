@@ -8,10 +8,6 @@ forms.forEach(formObject => {
         const {validFormFields, formIsValid} = validateForm(form, formObject.validationRules);
 
         formObject.callback(form, validFormFields, formIsValid);
-    
-        // console.log(`Testing form: ${formObject.name}`);
-        // console.log(validatedFields);
-        // console.log(formIsValid);
     };
 });
 

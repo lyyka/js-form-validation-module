@@ -7,8 +7,11 @@ import {rules} from '../../../dist/index.js';
  */
 const defaultCallback = (form, validFormFields, formIsValid) => {
     if(formIsValid) {
+        form.querySelectorAll('[custom-feedback-message]').forEach(el => { el.parentNode.removeChild(el); });
+
         // Render a label to show that form is valid
         const el = document.createElement('p');
+        el.setAttribute('custom-feedback-message', 1);
         el.style.color='green';
         el.innerText = 'Form is valid! 🎉';
         form.appendChild(el);
@@ -18,9 +21,15 @@ const defaultCallback = (form, validFormFields, formIsValid) => {
         const fieldNames = validFormFields.map((field) => {
             return field.getAttribute('name');
         });
-        el.style.color='green';
-        el.innerText = `Valid fields: ${fieldNames.join(', ')}`;
+        validFields.setAttribute('custom-feedback-message', 1);
+        validFields.style.color='green';
+        validFields.innerText = `Valid fields: ${fieldNames.join(', ')}`;
         form.appendChild(validFields);
+
+        setTimeout(() => {
+            form.removeChild(el);
+            form.removeChild(validFields);
+        }, 5000);
     }
 };
 
