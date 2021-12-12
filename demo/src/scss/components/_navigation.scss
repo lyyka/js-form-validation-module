@@ -1,8 +1,11 @@
 @import '../colors';
 
-.navbar {
+nav {
     position: sticky;
     top: 0;
+}
+
+.navbar {
     border-bottom: 1px solid $color-E5;
     padding: 12px 20px;
     background: #ffffff;

@@ -41,15 +41,3 @@ a {
 		color: $color-purple;
 	}
 }
-
-.section-title {
-	margin-bottom: 24px;
-
-	&.has-subtitle {
-		margin-bottom: 10px;
-
-		& + p {
-			margin-bottom: 24px;
-		}
-	}
-}

@@ -1,5 +1,19 @@
+@import '../colors';
+
 .section {
     padding: 60px 0;
+
+    &-title {
+        margin-bottom: 24px;
+    
+        &.has-subtitle {
+            margin-bottom: 10px;
+    
+            & + p {
+                margin-bottom: 24px;
+            }
+        }
+    }
 }
 
 .container {

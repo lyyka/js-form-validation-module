@@ -1,3 +1,5 @@
+@import '../colors';
+
 * {
     box-sizing: border-box;
 }
@@ -9,4 +11,17 @@ html, body {
 
 img {
     max-width: 100%;
+}
+
+a.cta {
+    color: white;
+    background: $color-blue;
+    border-radius: 4px;
+    padding: 12px 16px;
+    display: inline-block;
+    margin: 12px 0;
+
+    &:hover {
+        color: white;
+    }
 }
