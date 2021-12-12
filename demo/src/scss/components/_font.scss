@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap');
+@import '../colors';
+@import '../mixins/font-size';
+
+* {
+	font-family: 'Source Sans 3', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: $color-text;
+	margin: 0;
+	margin-bottom: 10px;
+}
+
+h1 {
+	@include font-size(32);
+}
+
+h2 {
+	@include font-size(24);
+}
+
+p {
+	color: $color-text;
+	@include font-size();
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+
+a {
+	color: $color-text;
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: none;
+		color: $color-purple;
+	}
+}
+
+.section-title {
+	margin-bottom: 24px;
+
+	&.has-subtitle {
+		margin-bottom: 10px;
+
+		& + p {
+			margin-bottom: 24px;
+		}
+	}
+}

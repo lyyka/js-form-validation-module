@@ -1,0 +1,30 @@
+@import '../colors';
+
+.navbar {
+    position: sticky;
+    top: 0;
+    border-bottom: 1px solid $color-E5;
+    padding: 12px 20px;
+    background: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > &__logo-wrapper > img {
+        height: 64px;
+    }
+
+    & > &__links-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        a {
+            display: inline-block;
+
+            & + a {
+                margin-left: 14px;
+            }
+        }
+    }
+}

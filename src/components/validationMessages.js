@@ -1,4 +1,4 @@
-const defaultValidationMessages = {
+export const defaultValidationMessages = {
     'required': (fieldName) => `${fieldName} field is required`,
     'string': (fieldName) => `${fieldName} must be string`,
     'email': (fieldName) => `${fieldName} must be an email string`,
@@ -9,5 +9,3 @@ const defaultValidationMessages = {
     'lt': (fieldName, params) => `${fieldName} value must be greater then ${params[0]}`,
     'lte': (fieldName, params) => `${fieldName} value must be less then or equal to ${params[0]}`,
 };
-
-export default defaultValidationMessages;

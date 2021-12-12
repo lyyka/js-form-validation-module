@@ -1,6 +1,4 @@
-const CONFIG = {
+export const CONFIG = {
     parametrizedValidatorSeparator: ':',
     parametrizedValidatorParametersSeparator: ',',
 };
-
-export default CONFIG;

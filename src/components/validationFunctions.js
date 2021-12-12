@@ -1,4 +1,4 @@
-const validationFunctions = {
+export const validationFunctions = {
     /**
      * Checks if the value is not undefined/null/empty
      * @param {*} value
@@ -88,5 +88,3 @@ const validationFunctions = {
         return Number(value) <= comparisonValue;
     },
 };
-
-export default validationFunctions;

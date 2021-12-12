@@ -4,7 +4,7 @@
  * @param {HTMLElement} form - HTMLElement object
  * @returns {HTMLElement[]} An array of form elements that will go into the validation
  */
-const getFieldsToValidateFromForm = (form) => {
+export const getFieldsToValidateFromForm = (form) => {
     const result = Array.from(form.querySelectorAll('[name]:not([type="checkbox"]):not([type="radio"])'));
 
     // Add only checked checkboxes and radios
@@ -16,5 +16,3 @@ const getFieldsToValidateFromForm = (form) => {
 
     return result;
 };
-
-export default getFieldsToValidateFromForm; 

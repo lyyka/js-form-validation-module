@@ -1,6 +1,6 @@
-import defaultValidationMessages from './validationMessages.js';
-import validationFunctions from './validationFunctions.js';
-import CONFIG from '../config.js';
+import {defaultValidationMessages} from './validationMessages.js';
+import {validationFunctions} from './validationFunctions.js';
+import {CONFIG} from '../config.js';
 
 /**
  * Validate specific field
@@ -8,7 +8,7 @@ import CONFIG from '../config.js';
  * @param {Object} options - An options object to customize the validation process
  * @returns 
  */
-const validateField = (field, validationRules, options = {}) => {
+export const validateField = (field, validationRules, options = {}) => {
     const name = field.getAttribute('name');
     const validationMessages = options.validationMessages || {};
 
@@ -70,6 +70,7 @@ const validateField = (field, validationRules, options = {}) => {
                     const textNode = document.createElement('p');
                     textNode.setAttribute('data-is-validation-error', '1');
                     textNode.style.color = options.validationMessageColor;
+                    textNode.style.marginTop = '0px';
                     textNode.innerText = finalMessage;
                     field.parentNode.appendChild(textNode);
                 }
@@ -81,5 +82,3 @@ const validateField = (field, validationRules, options = {}) => {
 
     return isValid;
 };
-
-export default validateField;

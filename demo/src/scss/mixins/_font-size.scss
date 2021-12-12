@@ -1,0 +1,7 @@
+@mixin font-size($sizeValue: 16, $heightValue: 24) {
+	font-size: $sizeValue + px; //fallback for old browsers
+	font-size: (0.0625 * $sizeValue) + rem;
+	
+	line-height: $heightValue + px; //fallback for old browsers
+	line-height: (0.0625 * $heightValue) + rem;
+}

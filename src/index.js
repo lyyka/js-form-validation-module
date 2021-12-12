@@ -1,7 +1,7 @@
-import rules from './components/validationRulesGenerators.js';
-import validateField from './components/validateField.js';
-import getFieldsToValidateFromForm from './components/getFieldsToValidateFromForm.js';
-import defaultOptions from './components/options.js';
+import {rules} from './components/validationRulesGenerators.js';
+import {validateField} from './components/validateField.js';
+import {getFieldsToValidateFromForm} from './components/getFieldsToValidateFromForm.js';
+import {defaultOptions} from './components/options.js';
 
 /**
  * Validates whole form, given as HTML element
@@ -14,8 +14,8 @@ import defaultOptions from './components/options.js';
  */
 const validateForm = (form, validationRules, options = {}) => {
     options = {
-        ...options,
         ...defaultOptions,
+        ...options,
     };
 
     const validFormFields = []; // Save an array of valid fields

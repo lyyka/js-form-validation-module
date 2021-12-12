@@ -1,0 +1,33 @@
+@import '../colors';
+@import '../mixins/font-size';
+
+@mixin basicInput($verticalPadding: 12, $horizontalPadding: 16) {
+    @include font-size();
+    border-radius: 4px;
+    padding: $verticalPadding + px $horizontalPadding + px;
+    background: white;
+    width: 100%;
+    outline: none;
+}
+
+input, select {
+    @include basicInput();
+    border: 1px solid $color-E5;
+
+    &:focus {
+        border: 1px solid $color-blue;
+    }
+}
+
+button {
+    @include basicInput();
+    border: 0;
+    background: $color-blue;
+    color: white;
+}
+
+.input {
+    &__wrapper + &__wrapper {
+        margin-top: 24px;
+    }
+}

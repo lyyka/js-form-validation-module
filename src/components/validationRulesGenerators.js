@@ -1,6 +1,6 @@
-import CONFIG from '../config.js';
+import {CONFIG} from '../config.js';
 
-const rules = {
+export const rules = {
     /**
      * Genrate 'required' validation rule
      * @returns {String}
@@ -103,5 +103,3 @@ const rules = {
         return `lte${CONFIG.parametrizedValidatorSeparator}${number}`;
     },
 };
-
-export default rules;
