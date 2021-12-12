@@ -1,4 +1,4 @@
-param ([Parameter(Mandatory)]$m, $dryRun, $suppressGitOutput)
+param ([Parameter(Mandatory)]$m, $dryRun, $suppressOutput)
 
 function PrintMessage {
     param (
@@ -7,30 +7,32 @@ function PrintMessage {
     )
 
     $params = @{ ForeGroundColor=$foregroundColor }
-    
-    Write-Host $($message) @params
+    $dryRunPrepend = $( if(! $null -eq $dryRun){ '(dry run) ' } )
+
+    Write-Host $($dryRunPrepend + $message) @params
 }
 
-$isDryRun = $( if(! $null -eq $dryRun){ $TRUE }else { $FALSE } )
 
-$dryRunPrepend = $( if($isDryRun){ '(dry run) ' } )
-$gitAdd = $( if($isDryRun){ 'git add . --dry-run' }else{ 'git add .' }  )
-$gitCommit = $( if($isDryRun){ 'git commit --dry-run -m "' + $m + '"' }else{ 'git commit -m "' + $m + '"' }  )
-$gitPush = $( if($isDryRun){ 'git push --dry-run' }else{ 'git push' }  )
+if(! $null -eq $dryRun) {
+    $dryRun = '--dry-run'
+}
+if(! $null -eq $suppressOutput) {
+    $suppressOutput = '>$null'
+}
 
 PrintMessage "Building resources for demo website..."
-npm run demo-build --quiet >$null
+npm run demo-build {$suppressOutput}
 
 PrintMessage "Building main module..."
-npm run build --quiet >$null
+npm run build {$suppressOutput}
 
-PrintMessage "$($dryRunPrepend)Staging files for commit to the repository..."
-Invoke-Expression $gitAdd >$null
+PrintMessage "Staging files for commit to the repository..."
+Invoke-Expression $("git add . $($dryRun) $($suppressOutput)")
 
-PrintMessage "$($dryRunPrepend)Comitting files to the repository..."
-Invoke-Expression $gitCommit >$null
+PrintMessage "Comitting files to the repository..."
+Invoke-Expression $("git commit $($dryRun) -m " + '"' + $m + '"' + " $($suppressOutput)") 
 
-PrintMessage "$($dryRunPrepend)Pushing to the repository..."
-Invoke-Expression $gitPush >$null
+PrintMessage "Pushing to the repository..."
+Invoke-Expression $("git push $($dryRun) $($suppressOutput)") 
 
 PrintMessage "Build successfully deployed!"
