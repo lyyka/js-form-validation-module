@@ -5,7 +5,7 @@ import rules from '../src/components/validationRulesGenerators.js';
 import CONFIG from '../src/config.js';
 use(sinonChai);
 
-describe('Test validation rules generation', function() {
+describe('Test validation rules strings generation', function() {
     before(() => {
         sinon.stub(console, 'error');
     });
@@ -21,6 +21,32 @@ describe('Test validation rules generation', function() {
     
         it('Should render email', function() {
             assert.equal(rules.email(), 'email');
+        });
+    });
+
+    describe('Min/max string length rules', function() {
+        it('Should render minStrLen', function() {
+            const minStrLen = rules.minStrLen(2);
+            assert.equal(minStrLen, `minStrLen${CONFIG.parametrizedValidatorSeparator}2`);
+        });
+
+        it('Should render empty minStrLen if value is NaN', function() {
+            const invalidValue = 'not a number';
+            const minStrLen = rules.minStrLen(invalidValue);
+            assert.equal(minStrLen, '');
+            expect(console.error).to.be.calledWith(`Passing NaN value of '${invalidValue}' to minStrLen()`);
+        });
+
+        it('Should render maxStrLen', function() {
+            const maxStrLen = rules.maxStrLen(2);
+            assert.equal(maxStrLen, `maxStrLen${CONFIG.parametrizedValidatorSeparator}2`);
+        });
+
+        it('Should render empty maxStrLen if value is NaN', function() {
+            const invalidValue = 'not a number';
+            const maxStrLen = rules.maxStrLen(invalidValue);
+            assert.equal(maxStrLen, '');
+            expect(console.error).to.be.calledWith(`Passing NaN value of '${invalidValue}' to maxStrLen()`);
         });
     });
 
@@ -103,6 +129,12 @@ describe('Test validation rules generation', function() {
             const lte = rules.lte(invalidValue);
             assert.equal(lte, '');
             expect(console.error).to.be.calledWith(`Passing NaN value of '${invalidValue}' to lte()`);
+        });
+    });
+
+    describe('Date rules', function() {
+        it('Should render date', function() {
+            assert.equal(rules.date('12-12-2025'), 'date:12-12-2025');
         });
     });
 });

@@ -18,6 +18,26 @@ export const validationFunctions = {
     },
 
     /**
+     * Check if string value is above minimum length
+     * @param {*} value 
+     * @param {Array} params
+     * @returns {boolean}
+     */
+    minStrLen: (value, params) => {
+        return typeof value === 'string' && value.length >= params[0];
+    },
+
+    /**
+     * Check if string value is below maximum length
+     * @param {*} value 
+     * @param {Array} params
+     * @returns {boolean}
+     */
+    maxStrLen: (value, params) => {
+        return typeof value === 'string' && value.length <= params[0];
+    },
+ 
+    /**
      * Checks if value matches email regex
      * @param {*} value 
      * @returns {boolean}
@@ -30,61 +50,70 @@ export const validationFunctions = {
     /**
      * Checks if value is in an array of other values
      * @param {*} value 
-     * @param {Array} values 
+     * @param {Array} params 
      * @returns {boolean}
      */
-    in: (value, values) => {
-        return values.includes(value);
+    in: (value, params) => {
+        return params.includes(value);
     },
 
     /**
      * Checks if the value is between two given values
      * @param {*} value 
-     * @param {Array} values 
+     * @param {Array} params 
      * @returns {boolean}
      */
-    between: (value, values) => {
+    between: (value, params) => {
         const numVal = Number(value);
-        return numVal >= values[0] && numVal <= values[1];
+        return numVal >= params[0] && numVal <= params[1];
     },
     
     /**
      * Checks if the value is strictly greater than the comparison value
      * @param {*} value 
-     * @param {Number} comparisonValue 
+     * @param {Number} params 
      * @returns {boolean}
      */
-    gt: (value, comparisonValue) => {
-        return Number(value) > comparisonValue;
+    gt: (value, params) => {
+        return Number(value) > params[0];
     },
 
     /**
      * Checks if the value is greater or equal than the comparison value
      * @param {*} value 
-     * @param {Number} comparisonValue 
+     * @param {Number} params 
      * @returns {boolean}
      */
-    gte: (value, comparisonValue) => {
-        return Number(value) >= comparisonValue;
+    gte: (value, params) => {
+        return Number(value) >= params[0];
     },
     
     /**
      * Checks if the value is strictly less than the comparison value 
      * @param {*} value 
-     * @param {Number} comparisonValue 
+     * @param {Number} params 
      * @returns {boolean} 
      */
-    lt: (value, comparisonValue) => {
-        return Number(value) < comparisonValue;
+    lt: (value, params) => {
+        return Number(value) < params[0];
     },
 
     /**
      * Checks if the value is less or equal than the comparison value
      * @param {*} value 
-     * @param {Number} comparisonValue 
+     * @param {Number} params 
      * @returns {boolean}
      */
-    lte: (value, comparisonValue) => {
-        return Number(value) <= comparisonValue;
+    lte: (value, params) => {
+        return Number(value) <= params[0];
+    },
+
+    /**
+     * Check if provided value matches a date format
+     * @param {*} value 
+     * @returns {boolean}
+     */
+    date: (value) => {
+        return !isNaN(Date.parse(value));
     },
 };

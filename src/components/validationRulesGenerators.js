@@ -20,6 +20,34 @@ export const rules = {
     email: () => { return 'email'; },
 
     /**
+     * Generate 'minStrLen' validation rule string
+     * @param {Number} number 
+     * @returns {String}
+     */
+    minStrLen: (number) => {
+        if(isNaN(number)) {
+            console.error(`Passing NaN value of '${number}' to minStrLen()`);
+            return '';
+        }
+
+        return `minStrLen${CONFIG.parametrizedValidatorSeparator}${number}`;
+    },
+
+    /**
+     * Generate 'maxStrLen' validation rule string
+     * @param {Number} number 
+     * @returns {String}
+     */
+    maxStrLen: (number) => {
+        if(isNaN(number)) {
+            console.error(`Passing NaN value of '${number}' to maxStrLen()`);
+            return '';
+        }
+
+        return `maxStrLen${CONFIG.parametrizedValidatorSeparator}${number}`;
+    },
+
+    /**
      * Generate 'in' validation rule string
      * @param {Array} values 
      * @returns {String}
@@ -101,5 +129,14 @@ export const rules = {
         }
 
         return `lte${CONFIG.parametrizedValidatorSeparator}${number}`;
+    },
+
+    /**
+     * Generate 'date' validation rule string
+     * @param {*} value 
+     * @returns 
+     */
+    date: (value) => {
+        return `date${CONFIG.parametrizedValidatorSeparator}${value}`;
     },
 };

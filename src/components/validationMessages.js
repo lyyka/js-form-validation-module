@@ -8,4 +8,7 @@ export const defaultValidationMessages = {
     'gte': (fieldName, params) => `${fieldName} value must be greater then or equal to ${params[0]}`,
     'lt': (fieldName, params) => `${fieldName} value must be greater then ${params[0]}`,
     'lte': (fieldName, params) => `${fieldName} value must be less then or equal to ${params[0]}`,
+    'date': (fieldName) => `${fieldName} value is not a valid date string`,
+    'minStrLen': (fieldName, params) => `${fieldName} must have at least ${params[0]} characters`,
+    'maxStrLen': (fieldName, params) => `${fieldName} must not have more than ${params[0]} characters`,
 };

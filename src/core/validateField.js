@@ -1,5 +1,5 @@
-import {defaultValidationMessages} from './validationMessages.js';
-import {validationFunctions} from './validationFunctions.js';
+import {defaultValidationMessages} from '../components/validationMessages.js';
+import {validationFunctions} from '../components/validationFunctions.js';
 import {CONFIG} from '../config.js';
 
 /**
