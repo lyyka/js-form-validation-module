@@ -21,6 +21,7 @@ input, select {
 
 button {
     @include basicInput();
+    cursor: pointer;
     border: 0;
     background: $color-blue;
     color: white;

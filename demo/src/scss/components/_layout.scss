@@ -1,4 +1,14 @@
 @import '../colors';
+@import '../mixins/font-size';
+
+.back-link {
+    display: inline-flex;
+    margin-bottom: 24px;
+    align-items: center;
+    color: $color-blue;
+    text-decoration: underline;
+    @include font-size();
+}
 
 .section {
     padding: 60px 0;

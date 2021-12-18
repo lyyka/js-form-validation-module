@@ -21,10 +21,20 @@ if(! $null -eq $suppressOutput) {
 }
 
 PrintMessage "Building resources for demo website..."
-npm run demo-build {$suppressOutput}
+npm run demo-build $suppressOutput
+
+if(! $?) {
+    PrintMessage "Building demo website failed, check errors above. If output was suppressed, no logs can be found." "Red"
+    Break
+}
 
 PrintMessage "Building main module..."
-npm run build {$suppressOutput}
+npm run build $suppressOutput
+
+if(! $?) {
+    PrintMessage "Building main module failed, check errors above. If output was suppressed, no logs can be found." "Red"
+    Break
+}
 
 PrintMessage "Staging files for commit to the repository..."
 Invoke-Expression $("git add . $($dryRun) $($suppressOutput)")
