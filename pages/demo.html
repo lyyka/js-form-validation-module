@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JS form validation module | Demo forms</title>
+    </head>
+    <body>
+        <nav>
+            <div class="navbar">
+                <div class="navbar__logo-wrapper">
+
+                </div>
+                <div class="navbar__links-wrapper">
+                    <a href="../index.html">
+                        Home
+                    </a>
+                    <a href="#">
+                        Demo
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <section class="section">
+                <div class="container">
+                    <a href="../index.html" class="back-link">
+                        < Home
+                    </a>
+                    <h1>
+                        Demo forms
+                    </h1>
+                    <p>
+                        On this page you can explore how each of the validation rules work in action.
+                    </p>
+                    <p>
+                        You can check <strong class="text-purple">live</strong> validation for each field, which will enable the field to get validated as you type.
+                    </p>
+
+                    <div class="input__wrapper">
+                        <input 
+                            type="text"
+                            name="search"
+                            id="search"
+                            placeholder="Search for rules..."
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <!-- Required rule form -->
+            <section class="section">
+                <div class="container">
+                    <h2 data-searchable class="section-title text-blue has-subtitle">
+                        "Required" rule
+                    </h2>
+                    <p data-searchable>
+                        If you want to make sure a field gets filled.
+                    </p>
+                    <form id="test-required-validation">
+                        <div class="input__wrapper">
+                            <input type="text" name="first_name" placeholder="First name" />
+                        </div>
+                        <div class="input__wrapper">
+                            <label for="live-1" class="input__checkbox-wrapper-label">
+                                <input 
+                                    id="live-1"
+                                    type="checkbox"
+                                    name="live"
+                                    checked
+                                    data-disable-validation
+                                />
+                                Live validation
+                                <span class="input__checkbox-indicator"></span>
+                            </label>
+                        </div>
+                        <div class="input__wrapper">
+                            <button type="button">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- String rule form -->
+            <section class="section">
+                <div class="container">
+                    <h2 data-searchable class="section-title text-blue has-subtitle">
+                        "String" rule
+                    </h2>
+                    <p data-searchable>
+                        If you want to make sure a field contains a value of type string.
+                    </p>
+                    <form id="test-string-validation">
+                        <div class="input__wrapper">
+                            <input type="text" name="first_name" placeholder="First name" />
+                        </div>
+                        <div class="input__wrapper">
+                            <label for="live-2" class="input__checkbox-wrapper-label">
+                                <input 
+                                    id="live-2"
+                                    type="checkbox"
+                                    name="live"
+                                    checked
+                                />
+                                Live validation
+                                <span class="input__checkbox-indicator"></span>
+                            </label>
+                        </div>
+                        <div class="input__wrapper">
+                            <button type="button">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Min. string len. rule form -->
+            <section class="section">
+                <div class="container">
+                    <h2 data-searchable class="section-title text-blue has-subtitle">
+                        "Minimum string length" rule
+                    </h2>
+                    <p data-searchable>
+                        If you want to make sure a field has text with a minimum defined length.
+                    </p>
+                    <form id="test-min-str-len-validation">
+                        <div class="input__wrapper">
+                            <input type="text" name="first_name" placeholder="First name (at least 5 chars)" />
+                        </div>
+                        <div class="input__wrapper">
+                            <label for="live-3" class="input__checkbox-wrapper-label">
+                                <input 
+                                    id="live-3"
+                                    type="checkbox"
+                                    name="live"
+                                    checked
+                                />
+                                Live validation
+                                <span class="input__checkbox-indicator"></span>
+                            </label>
+                        </div>
+                        <div class="input__wrapper">
+                            <button type="button">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Max. string len. rule form -->
+            <section class="section">
+                <div class="container">
+                    <h2 data-searchable class="section-title text-blue has-subtitle">
+                        "Maximum string length" rule
+                    </h2>
+                    <p data-searchable>
+                        If you want to make sure a field has text with a maximum defined length.
+                    </p>
+                    <form id="test-max-str-len-validation">
+                        <div class="input__wrapper">
+                            <input type="text" name="first_name" placeholder="First name (at most 5 chars)" />
+                        </div>
+                        <div class="input__wrapper">
+                            <label for="live-4" class="input__checkbox-wrapper-label">
+                                <input 
+                                    id="live-4"
+                                    type="checkbox"
+                                    name="live"
+                                    checked
+                                />
+                                Live validation
+                                <span class="input__checkbox-indicator"></span>
+                            </label>
+                        </div>
+                        <div class="input__wrapper">
+                            <button type="button">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Email form -->
+            <section class="section">
+                <div class="container">
+                    <h2 data-searchable class="section-title text-blue has-subtitle">
+                        "Email" rule
+                    </h2>
+                    <p data-searchable>
+                        If you want to make sure a field has a valid email string.
+                    </p>
+                    <form id="test-email-validation">
+                        <div class="input__wrapper">
+                            <input type="text" name="email" placeholder="Valid email string" />
+                        </div>
+                        <div class="input__wrapper">
+                            <label for="live-5" class="input__checkbox-wrapper-label">
+                                <input 
+                                    id="live-5"
+                                    type="checkbox"
+                                    name="live"
+                                    checked
+                                />
+                                Live validation
+                                <span class="input__checkbox-indicator"></span>
+                            </label>
+                        </div>
+                        <div class="input__wrapper">
+                            <button type="button">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- "In" rule form -->
+            <section class="section">
+                <div class="container">
+                    <h2 data-searchable class="section-title text-blue has-subtitle">
+                        "In" rule
+                    </h2>
+                    <p data-searchable>
+                        If you want to limit which values the field can contain, you can use the "in" rule.
+                    </p>
+                    <form id="test-in-validation">
+                        <div class="input__wrapper">
+                            <select name="favourite_color">
+                                <option value="not-allowed">This value is not allowed to be selected</option>
+                                <option value="red">Red</option>
+                                <option value="green">Green</option>
+                                <option value="blue">Blue</option>
+                            </select>
+                        </div>
+                        <div class="input__wrapper">
+                            <label for="live-6" class="input__checkbox-wrapper-label">
+                                <input 
+                                    id="live-6"
+                                    type="checkbox"
+                                    name="live"
+                                    checked
+                                />
+                                Live validation
+                                <span class="input__checkbox-indicator"></span>
+                            </label>
+                        </div>
+                        <div class="input__wrapper">
+                            <button type="button">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Between form -->
+            <section class="section">
+                <div class="container">
+                    <h2 data-searchable class="section-title text-blue has-subtitle">
+                        "Between" rule
+                    </h2>
+                    <p data-searchable>
+                        If you want to make sure a number fields value is between some values.
+                    </p>
+                    <form id="test-between-validation">
+                        <div class="input__wrapper">
+                            <input type="number" name="age" placeholder="Enter your age (18-24 is valid)" />
+                        </div>
+                        <div class="input__wrapper">
+                            <label for="live-7" class="input__checkbox-wrapper-label">
+                                <input 
+                                    id="live-7"
+                                    type="checkbox"
+                                    name="live"
+                                    checked
+                                />
+                                Live validation
+                                <span class="input__checkbox-indicator"></span>
+                            </label>
+                        </div>
+                        <div class="input__wrapper">
+                            <button type="button">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- GT form -->
+            <section class="section">
+                <div class="container">
+                    <h2 data-searchable class="section-title text-blue has-subtitle">
+                        "Greater than" rule
+                    </h2>
+                    <p data-searchable>
+                        If you want to make sure a number fields value is greater than some value.
+                    </p>
+                    <form id="test-gt-validation">
+                        <div class="input__wrapper">
+                            <input type="number" name="number" placeholder="Enter a number greater than 50" />
+                        </div>
+                        <div class="input__wrapper">
+                            <label for="live-8" class="input__checkbox-wrapper-label">
+                                <input 
+                                    id="live-8"
+                                    type="checkbox"
+                                    name="live"
+                                    checked
+                                />
+                                Live validation
+                                <span class="input__checkbox-indicator"></span>
+                            </label>
+                        </div>
+                        <div class="input__wrapper">
+                            <button type="button">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- GTE form -->
+            <section class="section">
+                <div class="container">
+                    <h2 data-searchable class="section-title text-blue has-subtitle">
+                        "Greater than or equal" rule
+                    </h2>
+                    <p data-searchable>
+                        If you want to make sure a number fields value is freater than or equal to some value.
+                    </p>
+                    <form id="test-gte-validation">
+                        <div class="input__wrapper">
+                            <input type="number" name="number" placeholder="Enter a number greater than (or equal) 50" />
+                        </div>
+                        <div class="input__wrapper">
+                            <label for="live-9" class="input__checkbox-wrapper-label">
+                                <input 
+                                    id="live-9"
+                                    type="checkbox"
+                                    name="live"
+                                    checked
+                                />
+                                Live validation
+                                <span class="input__checkbox-indicator"></span>
+                            </label>
+                        </div>
+                        <div class="input__wrapper">
+                            <button type="button">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- LT form -->
+            <section class="section">
+                <div class="container">
+                    <h2 data-searchable class="section-title text-blue has-subtitle">
+                        "Less than" rule
+                    </h2>
+                    <p data-searchable>
+                        If you want to make sure a number fields value is less than some value.
+                    </p>
+                    <form id="test-lt-validation">
+                        <div class="input__wrapper">
+                            <input type="number" name="number" placeholder="Enter a number less than 50" />
+                        </div>
+                        <div class="input__wrapper">
+                            <label for="live-10" class="input__checkbox-wrapper-label">
+                                <input 
+                                    id="live-10"
+                                    type="checkbox"
+                                    name="live"
+                                    checked
+                                />
+                                Live validation
+                                <span class="input__checkbox-indicator"></span>
+                            </label>
+                        </div>
+                        <div class="input__wrapper">
+                            <button type="button">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- LTE form -->
+            <section class="section">
+                <div class="container">
+                    <h2 data-searchable class="section-title text-blue has-subtitle">
+                        "Less than or equal" rule
+                    </h2>
+                    <p data-searchable>
+                        If you want to make sure a number fields value is less than or equal to some value.
+                    </p>
+                    <form id="test-lte-validation">
+                        <div class="input__wrapper">
+                            <input type="number" name="number" placeholder="Enter a number less than (or equal) 50" />
+                        </div>
+                        <div class="input__wrapper">
+                            <label for="live-11" class="input__checkbox-wrapper-label">
+                                <input 
+                                    id="live-11"
+                                    type="checkbox"
+                                    name="live"
+                                    checked
+                                />
+                                Live validation
+                                <span class="input__checkbox-indicator"></span>
+                            </label>
+                        </div>
+                        <div class="input__wrapper">
+                            <button type="button">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Date form -->
+            <section class="section">
+                <div class="container">
+                    <h2 data-searchable class="section-title text-blue has-subtitle">
+                        "Date" rule
+                    </h2>
+                    <p data-searchable>
+                        If you want to make sure a fields number is a valid date.
+                    </p>
+                    <form id="test-date-validation">
+                        <div class="input__wrapper">
+                            <input type="text" name="birthday" placeholder="Enter your birthday for example" />
+                        </div>
+                        <div class="input__wrapper">
+                            <input type="date" name="birthday_date" placeholder="Enter your birthday for example" />
+                        </div>
+                        <div class="input__wrapper">
+                            <label for="live-12" class="input__checkbox-wrapper-label">
+                                <input 
+                                    id="live-12"
+                                    type="checkbox"
+                                    name="live"
+                                    checked
+                                />
+                                Live validation
+                                <span class="input__checkbox-indicator"></span>
+                            </label>
+                        </div>
+                        <div class="input__wrapper">
+                            <button type="button">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    <script defer src="../demoPage.ab7c86946f84ba2f6b50.bundle.js"></script></body>
+</html>
