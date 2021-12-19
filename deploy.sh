@@ -22,12 +22,11 @@ if [ ! -z $suppressOutput ]; then
     suppressOutput=">/dev/null"
 fi
 
+PrintMessage "Building main module..."
+eval npm run build $suppressOutput
 
 PrintMessage "Building resources for demo website..."
 eval npm run demo-build $suppressOutput
-
-PrintMessage "Building main module..."
-eval npm run build $suppressOutput
 
 PrintMessage "Staging files for commit to the repository..."
 eval git add . $dryRun $suppressOutput

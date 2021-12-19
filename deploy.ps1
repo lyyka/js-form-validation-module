@@ -20,19 +20,19 @@ if(! $null -eq $suppressOutput) {
     $suppressOutput = '>$null'
 }
 
-PrintMessage "Building resources for demo website..."
-npm run demo-build $suppressOutput
-
-if(! $?) {
-    PrintMessage "Building demo website failed, check errors above. If output was suppressed, no logs can be found." "Red"
-    Break
-}
-
 PrintMessage "Building main module..."
 npm run build $suppressOutput
 
 if(! $?) {
     PrintMessage "Building main module failed, check errors above. If output was suppressed, no logs can be found." "Red"
+    Break
+}
+
+PrintMessage "Building resources for demo website..."
+npm run demo-build $suppressOutput
+
+if(! $?) {
+    PrintMessage "Building demo website failed, check errors above. If output was suppressed, no logs can be found." "Red"
     Break
 }
 
