@@ -1,6 +1,6 @@
-import '../scss/_global.scss';
+import '~/_global.scss';
 import {Form,rules} from '../../../dist/index.js';
-import {forms} from './components/forms';
+import {forms} from '@/components/forms';
 
 const searchField = document.querySelector('#search');
 searchField.addEventListener('input', () => {

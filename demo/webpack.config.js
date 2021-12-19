@@ -1,13 +1,13 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: 'production',
     entry: {
-        indexPage: './src/js/index.js',
+        indexPage: './src/js/indexPage.js',
         demoPage: './src/js/demoPage.js',
-        docsPage: './src/js/docsPage.js',
     },
     output: {
         filename: '[name].[contenthash].bundle.js',
@@ -30,7 +30,9 @@ module.exports = {
             chunks: ['demoPage'],
         }),
 
-        // To add more html pages to build, just add new instance of HtmlWebpakcPlugin to this array
+        new MiniCssExtractPlugin({
+            filename: '[name].[contenthash].css'
+        }),
 
         new CleanWebpackPlugin(),
     ],
@@ -39,11 +41,30 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    'style-loader', // 3. Injects styles into DOM
-                    'css-loader', // 2. Turn CSS into commonjs
-                    'sass-loader' // 1. Turns SCSS into CSS
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader'
                 ]
             }
         ],
-    }
+    },
+    // module: {
+    //     rules: [
+    //         {
+    //             test: /\.scss$/,
+    //             use: [
+    //                 'style-loader', // 3. Injects styles into DOM
+    //                 'css-loader', // 2. Turn CSS into commonjs
+    //                 'sass-loader' // 1. Turns SCSS into CSS
+    //             ]
+    //         }
+    //     ],
+    // },
+    
+    resolve: {
+        alias: {
+            '@': path.resolve(path.resolve(), './src/js'),
+            '~': path.resolve(path.resolve(), './src/scss'),
+        }
+    },
 };
