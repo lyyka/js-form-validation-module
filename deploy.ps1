@@ -36,13 +36,16 @@ if(! $?) {
     Break
 }
 
-PrintMessage "Staging files for commit to the repository..."
+PrintMessage "Staging files for commit..."
 Invoke-Expression $("git add . $($dryRun) $($suppressOutput)")
 
-PrintMessage "Comitting files to the repository..."
+PrintMessage "Comitting files..."
 Invoke-Expression $("git commit $($dryRun) -m " + '"' + $m + '"' + " $($suppressOutput)") 
 
-PrintMessage "Pushing to the repository..."
+PrintMessage "Pushing to remote..."
 Invoke-Expression $("git push $($dryRun) $($suppressOutput)") 
+
+PrintMessage "Pushing to distribution subtree on remote..."
+git subtree push $dryRun --prefix demo/dist origin gh-pages $suppressOutput
 
 PrintMessage "Build successfully deployed!"
