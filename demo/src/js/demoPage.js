@@ -1,20 +1,30 @@
 import '../scss/_global.scss';
-import {rules,validateForm} from '../../../dist/index.js';
+import {Form,rules} from '../../../dist/index.js';
 import {forms} from './components/forms';
 
 forms(rules).forEach(formObject => {
     const form = document.querySelector(`#${formObject.formId}`);
-    form.querySelector('button').onclick = function() {
+    const isLiveCheck = form.querySelector('input[name=live]');
 
+    const instantiateForm = () => {
         const options = {
-            live: form.querySelector('input[name=live]').checked,
+            live: isLiveCheck.checked,
         };
-
-        const {formIsValid} = validateForm(
-            form, 
+    
+        return (new Form(form)).initialize(
             formObject.validationRules,
             options
         );
+    };
+
+    let formInstance = instantiateForm();
+
+    isLiveCheck.addEventListener('change', () => { 
+        formInstance = instantiateForm(); 
+    });
+
+    form.querySelector('button').onclick = function() {
+        const {formIsValid} = formInstance.validate();
 
         formObject.callback(form, formIsValid);
     };
