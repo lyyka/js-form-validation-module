@@ -21,11 +21,15 @@ export const validateField = (field, validationRules, options = {}) => {
             }
         };
 
-        removeExistingValidationErrorLabel(field);
-        field.classList.remove(options.invalidClass);
-        field.addEventListener('input', function() {
+        const resetField = (field) => {
             removeExistingValidationErrorLabel(field);
             field.classList.remove(options.invalidClass);
+            field.classList.remove(options.validClass);
+        };
+
+        resetField(field);
+        field.addEventListener('input', function() {
+            resetField(field);
         });
     }
 
@@ -78,6 +82,12 @@ export const validateField = (field, validationRules, options = {}) => {
                 break;
             }
         }
+    }
+
+    // If not silent, mark the field with class based on if it is valid or not
+    if(!options.silent) {
+        const classToAdd = isValid ? options.validClass : options.invalidClass;
+        field.classList.add(classToAdd);
     }
 
     return isValid;

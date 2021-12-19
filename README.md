@@ -55,6 +55,16 @@ silent: true|false
 
 Default: **false**
 
+### 1.3.3 `validClass`
+
+Specifies which class to add to inputs that are valid. Will only work if `silent` is `true`
+
+```js
+validClass: 'valid-input'
+```
+
+Default: **'valid'**
+
 ### 1.3.3 `invalidClass`
 
 Specifies which class to add to inputs that are invalid. Will only work if `silent` is `true`

@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha --require esm",
     "build": "webpack",
+    "build-watch": "webpack --watch",
     "demo-build": "cd demo && webpack --config ./webpack.config.demo.js",
     "demo-build-watch": "cd demo && webpack --watch --config ./webpack.config.demo.js"
   },

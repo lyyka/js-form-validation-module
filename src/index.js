@@ -29,9 +29,6 @@ const validateForm = (form, validationRules, options = {}) => {
         const field = fieldsToSend[i];
         if(!validateField(field, validationRules, options)) {
             formIsValid = false;
-            if(!options.silent) {
-                field.classList.add(options.invalidClass);
-            }
         } else if(Object.keys(validationRules).includes(field.getAttribute('name'))) {
             validFormFields.push(field);
         }
