@@ -1,9 +1,13 @@
+let timeout = undefined;
+
 const defaultCallback = (form) => {
+    if(timeout) {
+        clearTimeout(timeout);
+    }
     const button = form.getHtmlElement().querySelector('button');
-    const oldText = button.innerText;
     button.innerText = form.isValid ? 'Form is valid! 🎉' : 'Error 😔';
-    setTimeout(() => {
-        button.innerText = oldText;
+    timeout = setTimeout(() => {
+        button.innerText = 'Submit';
     }, 5000);
 };
 

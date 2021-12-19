@@ -12,11 +12,17 @@ export default class Form {
         this.fields = [];
         this.isValid = true;
         this.onValidCallback = () => {};
+        this.onInvalidCallback = () => {};
 
         this.getHtmlElement = this.getHtmlElement.bind(this);
         this.getHtmlFields = this.getHtmlFields.bind(this);
         this.initialize = this.initialize.bind(this);
         this.validate = this.validate.bind(this);
+        this.revalidate = this.revalidate.bind(this);
+        this.handleCallbacksAfterValidation = this.handleCallbacksAfterValidation.bind(this);
+        this.onValid = this.onValid.bind(this);
+        this.onInvalid = this.onInvalid.bind(this);
+        this.destroy = this.destroy.bind(this);
     }
 
     /**
@@ -32,11 +38,11 @@ export default class Form {
      * @returns {Array}
      */
     getHtmlFields() {
-        const result = Array.from(this.form.querySelectorAll('[name]:not([type="checkbox"]):not([type="radio"])'));
+        const result = Array.from(this.form.querySelectorAll('[name]:not([type="checkbox"]):not([type="radio"]):not([data-disable-validation])'));
 
         // Add only checked checkboxes and radios
         const addChecked = (type) => {
-            this.form.querySelectorAll(`[type=${type}]:checked`).forEach(el => { result.push(el); });
+            this.form.querySelectorAll(`[type=${type}]:checked:not([data-disable-validation])`).forEach(el => { result.push(el); });
         };
         addChecked('radio');
         addChecked('checkbox');
@@ -60,6 +66,7 @@ export default class Form {
         const fieldsToSend = this.getHtmlFields();
         for(let i = 0; i < fieldsToSend.length; i++) {
             const field = new Field(fieldsToSend[i]);
+            field.setForm(this);
             field.setValidationRules(
                 this.validationRules[field.getFieldName()]
             );
@@ -90,21 +97,64 @@ export default class Form {
             }
         });
 
-        if(this.isValid) {
-            this.onValidCallback(this);
-        }
+        this.handleCallbacksAfterValidation();
 
         return { validFields, isValid: this.isValid };
     }
 
     /**
+     * Revalidated based on existing fields states
+     * This handles the situation where some fields changed states outside form validation
+     */
+    revalidate() {
+        this.isValid = true;
+        for(let i = 0; i < this.fields.length; i++) {
+            if(!this.fields[i].isValid) {
+                this.isValid = false;
+                break;
+            }
+        }
+        this.handleCallbacksAfterValidation();
+    }
+
+    /**
+     * Handles all set callbacks
+     * This gets called after validating the form
+     */
+    handleCallbacksAfterValidation() {
+        if(this.isValid) {
+            this.onValidCallback(this);
+        } else {
+            this.onInvalidCallback(this);
+        }
+    }
+
+    /**
      * Provide callback function to be called when form is valid
-     * This can be used with live validation to provide auto-validation on a form
      * @param {CallableFunction} callback 
      * @return {Form}
      */
     onValid(callback) {
         this.onValidCallback = callback;
         return this;
+    }
+
+    /**
+     * Provide callback function to be called when form is invalid
+     * @param {CallableFunction} callback 
+     * @return {Form}
+     */
+    onInvalid(callback) {
+        this.onInvalidCallback = callback;
+        return this;
+    }
+
+    /**
+     * Destroys the form, it unbinds its fields event listeners
+     */
+    destroy() {
+        this.fields.forEach(field => {
+            field.destroy();
+        });
     }
 }

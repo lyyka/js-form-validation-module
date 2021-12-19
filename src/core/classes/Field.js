@@ -3,10 +3,12 @@ import {validateField} from '../validateField';
 
 export default class Field {
     /**
+     * @param {Form} form
      * @param {HTMLElement} field 
      */
     constructor(field) {
         this.field = field;
+        this.form = undefined;
         this.options = undefined;
         this.validationRules = undefined;
         this.shouldReset = false;
@@ -15,13 +17,17 @@ export default class Field {
 
         this.setOptions = this.setOptions.bind(this);
         this.setValidationRules = this.setValidationRules.bind(this);
+        this.setForm = this.setForm.bind(this);
         this.getValidationRules = this.getValidationRules.bind(this);
         this.getFieldElement = this.getFieldElement.bind(this);
         this.reset = this.reset.bind(this);
         this.validate = this.validate.bind(this);
+        this.attachValidationMessageLabel = this.attachValidationMessageLabel.bind(this);
+        this.onInput = this.onInput.bind(this);
         this.bindInputListener = this.bindInputListener.bind(this);
         this.shouldResetOnInput = this.shouldResetOnInput.bind(this);
         this.live = this.live.bind(this);
+        this.destroy = this.destroy.bind(this);
     }
 
     /**
@@ -44,6 +50,14 @@ export default class Field {
      */
     setValidationRules(validationRules) {
         this.validationRules = validationRules;
+    }
+
+    /**
+     * Set this fields form
+     * @param {Form} form 
+     */
+    setForm(form) {
+        this.form = form;
     }
 
     /**
@@ -126,18 +140,24 @@ export default class Field {
     }
 
     /**
+     * On input handler
+     */
+    onInput() {
+        if(this.shouldReset) {
+            this.reset();
+        }
+
+        if(this.isLive) {
+            this.validate();
+            this.form.revalidate();
+        }
+    }
+
+    /**
      * Binds "input" listener so field can be reset/live validated on input
      */
     bindInputListener() {
-        this.field.addEventListener('input', () => {
-            if(this.shouldReset) {
-                this.reset();
-            }
-
-            if(this.isLive) {
-                this.validate();
-            }
-        });
+        this.field.addEventListener('input', this.onInput);
     }
 
     /**
@@ -158,5 +178,12 @@ export default class Field {
         this.isLive = true;
         this.bindInputListener();
         return this;
+    }
+
+    /**
+     * Destroys this field, it unbinds its event listeners
+     */
+    destroy() {
+        this.field.removeEventListener('input', this.onInput);
     }
 }

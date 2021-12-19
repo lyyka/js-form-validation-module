@@ -11,15 +11,24 @@ forms(rules).forEach(formObject => {
             live: isLiveCheck.checked,
         };
     
-        return (new Form(form)).initialize(
-            formObject.validationRules,
-            options
-        );
+        let instance = (new Form(form))
+            .initialize(
+                formObject.validationRules,
+                options
+            );
+
+        if(options.live) {
+            instance = instance.onValid(formObject.callback)
+                .onInvalid(formObject.callback);
+        }
+
+        return instance;
     };
 
     let formInstance = instantiateForm();
 
     isLiveCheck.addEventListener('change', () => { 
+        formInstance.destroy();
         formInstance = instantiateForm(); 
     });
 
