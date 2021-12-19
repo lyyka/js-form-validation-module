@@ -28,17 +28,15 @@ const validateForm = (form, validationRules, options = {}) => {
     for(let i = 0; i < fieldsToSend.length; i++) {
         // Set up the field
         const field = new Field(fieldsToSend[i]);
-        field.setValidationRules(validationRules);
+        field.setValidationRules(validationRules[field.getFieldName()]);
         field.setOptions(options);
         field.reset();
 
         const fieldIsValid = field.validate();
 
-        const hasDefinedValidationRules = Object.keys(validationRules).includes(fieldsToSend[i].getAttribute('name'));
-
         if(!fieldIsValid) {
             formIsValid = false;
-        } else if(hasDefinedValidationRules) {
+        } else if(field.getValidationRules()) {
             validFormFields.push(fieldsToSend[i]);
         }
     }

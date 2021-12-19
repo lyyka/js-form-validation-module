@@ -23,6 +23,7 @@ export default class Field {
     }
 
     /**
+     * Sets the options parameter. It automatically turns off/on any switches that depend on options object
      * @param {Object} options 
      */
     setOptions(options) {
@@ -44,12 +45,32 @@ export default class Field {
     }
 
     /**
+     * Return set validation rules
+     * @returns {Array}
+     */
+    getValidationRules() {
+        return this.validationRules;
+    }
+
+    /**
+     * Get field as html element
      * @returns {HTMLElement} 
      */
     getFieldElement() {
         return this.field;
     }
 
+    /**
+     * Get fiels name attribute
+     * @returns {String}
+     */
+    getFieldName() {
+        return this.getFieldElement().getAttribute('name');
+    }
+
+    /**
+     * Resets the field, it removes the validation message from fields parent element and removes fields classess for valid/invalid state
+     */
     reset() {
         // Remove label
         const existingValidationErrorMessage = this.field.parentNode.querySelector('[data-is-validation-error]');
@@ -63,14 +84,11 @@ export default class Field {
     }
 
     /**
+     * Validates the field
      * @returns {boolean} 
      */
     validate() {
-        const fieldIsValid = validateField(
-            this,
-            this.validationRules,
-            this.options
-        );
+        const fieldIsValid = validateField(this);
 
         if(!this.options.silent) {
             const classToAdd = fieldIsValid ? this.options.validClass : this.options.invalidClass;
@@ -81,12 +99,13 @@ export default class Field {
     }
 
     /**
+     * Attaches validation message to the field parent
      * @param {String} validatorName 
      * @param {Array} parametersForValidator 
      */
     attachValidationMessageLabel(validatorName, parametersForValidator) {
         if(!this.options.silent) {
-            const name = this.getFieldElement().getAttribute('name');
+            const name = this.getFieldName();
             const validationMessages = this.options.validationMessages || {};
     
             let readableName = name.split('_').join(' '); // field_name -> field name
@@ -94,7 +113,7 @@ export default class Field {
             const customMessage = validationMessages[name] ? validationMessages[name][validatorName] : undefined;
             const finalMessage = customMessage || defaultValidationMessages[validatorName](readableName, parametersForValidator); // get the translation based on validator name if custom message is not defined
     
-            // Create error message
+            // Create and append error message
             const textNode = document.createElement('p');
             textNode.setAttribute('data-is-validation-error', '1');
             textNode.style.color = this.options.validationMessageColor;
@@ -104,6 +123,9 @@ export default class Field {
         }
     }
 
+    /**
+     * Binds "input" listener so field can be reset/live validated on input
+     */
     bindInputListener() {
         this.field.addEventListener('input', () => {
             if(this.shouldReset) {

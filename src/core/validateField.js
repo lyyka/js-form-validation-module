@@ -4,18 +4,14 @@ import {CONFIG} from '../config.js';
 /**
  * Validate specific field
  * @param {Field} field - HTMLElement field to be validated
- * @param {Object} validationRules - Object containing all validation rules
  * @returns {boolean}
  */
-export const validateField = (field, validationRules) => {
-    const fieldHtmlElement = field.getFieldElement();
-    const name = fieldHtmlElement.getAttribute('name');
-
+export const validateField = (field) => {
     // Assume field is valid (if no rules are defined)
     let isValid = true;
 
     // Get an array of validation rules based on field name
-    let validation = validationRules[name];
+    let validation = field.getValidationRules();
 
     // Check if rules actually exists
     if(validation) {
@@ -35,7 +31,7 @@ export const validateField = (field, validationRules) => {
             
             const fn = validationFunctions[validatorName];
             if(fn) {
-                isValid = fn(fieldHtmlElement.value, parametersForValidator);
+                isValid = fn(field.getFieldElement().value, parametersForValidator);
             } else {
                 throw new Error(`Validator '${validatorName}' does not exist!`);
             }
