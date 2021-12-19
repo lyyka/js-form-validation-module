@@ -11,9 +11,11 @@ export default class Field {
         this.validationRules = undefined;
         this.shouldReset = false;
         this.isLive = false;
+        this.isValid = true;
 
         this.setOptions = this.setOptions.bind(this);
         this.setValidationRules = this.setValidationRules.bind(this);
+        this.getValidationRules = this.getValidationRules.bind(this);
         this.getFieldElement = this.getFieldElement.bind(this);
         this.reset = this.reset.bind(this);
         this.validate = this.validate.bind(this);
@@ -88,14 +90,14 @@ export default class Field {
      * @returns {boolean} 
      */
     validate() {
-        const fieldIsValid = validateField(this);
+        this.isValid = validateField(this);
 
         if(!this.options.silent) {
-            const classToAdd = fieldIsValid ? this.options.validClass : this.options.invalidClass;
+            const classToAdd = this.isValid ? this.options.validClass : this.options.invalidClass;
             this.getFieldElement().classList.add(classToAdd);
         }
-
-        return fieldIsValid;
+        
+        return this.isValid;
     }
 
     /**

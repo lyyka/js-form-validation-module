@@ -10,6 +10,8 @@ export default class Form {
         this.validationRules = {};
         this.options = {};
         this.fields = [];
+        this.isValid = true;
+        this.onValidCallback = () => {};
 
         this.getHtmlElement = this.getHtmlElement.bind(this);
         this.getHtmlFields = this.getHtmlFields.bind(this);
@@ -74,20 +76,35 @@ export default class Form {
     validate() {
         const validFields = [];
 
-        let isValid = true;
+        this.isValid = true;
 
         this.fields.forEach(field => {
             field.reset();
 
-            const fieldIsValid = field.validate();
+            field.validate();
 
-            if(!fieldIsValid) {
-                isValid = false;
+            if(!field.isValid) {
+                this.isValid = false;
             } else if(field.getValidationRules()) {
                 validFields.push(field.getFieldElement());
             }
         });
 
-        return { validFields, isValid };
+        if(this.isValid) {
+            this.onValidCallback(this);
+        }
+
+        return { validFields, isValid: this.isValid };
+    }
+
+    /**
+     * Provide callback function to be called when form is valid
+     * This can be used with live validation to provide auto-validation on a form
+     * @param {CallableFunction} callback 
+     * @return {Form}
+     */
+    onValid(callback) {
+        this.onValidCallback = callback;
+        return this;
     }
 }

@@ -24,9 +24,8 @@ forms(rules).forEach(formObject => {
     });
 
     form.querySelector('button').onclick = function() {
-        const {formIsValid} = formInstance.validate();
-
-        formObject.callback(form, formIsValid);
+        formInstance.validate();
+        formObject.callback(formInstance);
     };
 });
 

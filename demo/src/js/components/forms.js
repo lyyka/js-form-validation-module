@@ -1,16 +1,10 @@
-/**
- * @param {HTMLElement} form
- * @param {boolean} formIsValid 
- */
-const defaultCallback = (form, formIsValid) => {
-    if(formIsValid) {
-        const button = form.querySelector('button');
-        const oldText = button.innerText;
-        button.innerText = 'Form is valid! 🎉';
-        setTimeout(() => {
-            button.innerText = oldText;
-        }, 5000);
-    }
+const defaultCallback = (form) => {
+    const button = form.getHtmlElement().querySelector('button');
+    const oldText = button.innerText;
+    button.innerText = form.isValid ? 'Form is valid! 🎉' : 'Error 😔';
+    setTimeout(() => {
+        button.innerText = oldText;
+    }, 5000);
 };
 
 export const forms = (rules) => [
