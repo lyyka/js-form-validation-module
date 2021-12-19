@@ -4,4 +4,5 @@ export const defaultOptions = {
     invalidClass: 'invalid',
     validClass: 'valid',
     validationMessageColor: 'red',
+    live: true,
 };

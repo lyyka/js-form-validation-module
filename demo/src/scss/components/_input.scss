@@ -22,7 +22,7 @@ input, select {
         border: 1px solid $color-red;
     }
 
-    &:focus {
+    &:focus:not(.valid):not(.invalid) {
         border: 1px solid $color-blue;
     }
 }

@@ -1,37 +1,15 @@
-import {defaultValidationMessages} from '../components/validationMessages.js';
 import {validationFunctions} from '../components/validationFunctions.js';
 import {CONFIG} from '../config.js';
 
 /**
  * Validate specific field
- * @param {HTMLElement} field - HTMLElement field to be validated
- * @param {Object} options - An options object to customize the validation process
- * @returns 
+ * @param {Field} field - HTMLElement field to be validated
+ * @param {Object} validationRules - Object containing all validation rules
+ * @returns {boolean}
  */
-export const validateField = (field, validationRules, options = {}) => {
-    const name = field.getAttribute('name');
-    const validationMessages = options.validationMessages || {};
-
-    // Make each field valid again, so red outline does not persist
-    if(!options.silent) {
-        const removeExistingValidationErrorLabel = function(field) {
-            const existingValidationErrorMessage = field.parentNode.querySelector('[data-is-validation-error]');
-            if(existingValidationErrorMessage) {
-                existingValidationErrorMessage.parentNode.removeChild(existingValidationErrorMessage);
-            }
-        };
-
-        const resetField = (field) => {
-            removeExistingValidationErrorLabel(field);
-            field.classList.remove(options.invalidClass);
-            field.classList.remove(options.validClass);
-        };
-
-        resetField(field);
-        field.addEventListener('input', function() {
-            resetField(field);
-        });
-    }
+export const validateField = (field, validationRules) => {
+    const fieldHtmlElement = field.getFieldElement();
+    const name = fieldHtmlElement.getAttribute('name');
 
     // Assume field is valid (if no rules are defined)
     let isValid = true;
@@ -57,37 +35,17 @@ export const validateField = (field, validationRules, options = {}) => {
             
             const fn = validationFunctions[validatorName];
             if(fn) {
-                isValid = fn(field.value, parametersForValidator);
+                isValid = fn(fieldHtmlElement.value, parametersForValidator);
             } else {
                 throw new Error(`Validator '${validatorName}' does not exist!`);
             }
 
             // Break as soon as possible if invalid, do not check other validators
             if(!isValid) {
-                if(!options.silent) {
-                    let readableName = name.split('_').join(' '); // field_name -> field name
-                    readableName = readableName.charAt(0).toUpperCase() + readableName.slice(1); // capitalize the name
-                    const customMessage = validationMessages[name] ? validationMessages[name][validatorName] : undefined;
-                    const finalMessage = customMessage || defaultValidationMessages[validatorName](readableName, parametersForValidator); // get the translation based on validator name if custom message is not defined
-
-                    // Create error message
-                    const textNode = document.createElement('p');
-                    textNode.setAttribute('data-is-validation-error', '1');
-                    textNode.style.color = options.validationMessageColor;
-                    textNode.style.marginTop = '0px';
-                    textNode.innerText = finalMessage;
-                    field.parentNode.appendChild(textNode);
-                }
-
+                field.attachValidationMessageLabel(validatorName,parametersForValidator);
                 break;
             }
         }
-    }
-
-    // If not silent, mark the field with class based on if it is valid or not
-    if(!options.silent) {
-        const classToAdd = isValid ? options.validClass : options.invalidClass;
-        field.classList.add(classToAdd);
     }
 
     return isValid;

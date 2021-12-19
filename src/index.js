@@ -1,7 +1,7 @@
 import {rules} from './components/validationRulesGenerators.js';
-import {validateField} from './core/validateField.js';
 import {getFieldsToValidateFromForm} from './core/getFieldsToValidateFromForm.js';
 import {defaultOptions} from './options.js';
+import Field from './core/classes/Field';
 
 /**
  * Validates whole form, given as HTML element
@@ -26,11 +26,20 @@ const validateForm = (form, validationRules, options = {}) => {
 
     // Validate each field in form against defined validation rules
     for(let i = 0; i < fieldsToSend.length; i++) {
-        const field = fieldsToSend[i];
-        if(!validateField(field, validationRules, options)) {
+        // Set up the field
+        const field = new Field(fieldsToSend[i]);
+        field.setValidationRules(validationRules);
+        field.setOptions(options);
+        field.reset();
+
+        const fieldIsValid = field.validate();
+
+        const hasDefinedValidationRules = Object.keys(validationRules).includes(fieldsToSend[i].getAttribute('name'));
+
+        if(!fieldIsValid) {
             formIsValid = false;
-        } else if(Object.keys(validationRules).includes(field.getAttribute('name'))) {
-            validFormFields.push(field);
+        } else if(hasDefinedValidationRules) {
+            validFormFields.push(fieldsToSend[i]);
         }
     }
 
