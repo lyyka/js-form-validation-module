@@ -39,4 +39,49 @@ button {
     &__wrapper + &__wrapper {
         margin-top: 24px;
     }
+
+    &__checkbox-wrapper-label {
+        display: block;
+        position: relative;
+        padding-left: 28px;
+        cursor: pointer;
+
+        input[type=checkbox] {
+            display: none;
+
+            &:checked ~ .input__checkbox-indicator {
+                background: $color-blue;
+    
+                &::after {
+                    display: block;
+                    position: absolute;
+                    left: 7px;
+                    top: 4px;
+                    width: 3px;
+                    height: 7px;
+                    border: solid #fff;
+                    border-width: 0 2px 2px 0;
+                    -webkit-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                }
+            }
+        }
+    }
+
+    &__checkbox-indicator {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        border: 1px solid $color-E5;
+        padding: 4px;
+
+        &::after {
+            content: "";
+            display: none;
+        }
+    }
 }
