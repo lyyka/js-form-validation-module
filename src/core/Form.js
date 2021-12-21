@@ -63,6 +63,7 @@ export default class Form {
             ...options
         };
 
+        this.fields = [];
         const fieldsToSend = this.getHtmlFields();
         for(let i = 0; i < fieldsToSend.length; i++) {
             const field = new Field(fieldsToSend[i]);
