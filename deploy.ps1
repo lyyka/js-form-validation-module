@@ -24,7 +24,10 @@ PrintMessage "Testing source files..."
 npm test $suppressOutput
 
 if(! $?) {
-    PrintMessage "Test are failing" "Red"
+    PrintMessage "Test are failing, deploy stopped." "Red"
+    if($suppressOutput) {
+        PrintMessage "Output is suppressed. Test with npm to see which test fail." "Red"
+    }
     Break
 }
 
@@ -53,7 +56,9 @@ Invoke-Expression $("git commit $($dryRun) -m " + '"' + $m + '"' + " $($suppress
 PrintMessage "Pushing to remote..."
 Invoke-Expression $("git push $($dryRun) $($suppressOutput)") 
 
-PrintMessage "Pushing to distribution subtree on remote..."
-git subtree push $dryRun --prefix demo/dist origin gh-pages $suppressOutput
+if(! $dryRun) {
+    PrintMessage "Pushing to distribution subtree on remote..."
+    git subtree push $dryRun --prefix demo/dist origin gh-pages $suppressOutput
+}
 
 PrintMessage "Build successfully deployed!"
