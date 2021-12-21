@@ -2,12 +2,21 @@ import { assert, expect, use } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import {rules} from '../../src/components/validationRulesGenerators.js';
+import {validationFunctions} from '../../src/components/validationFunctions.js';
 import {CONFIG} from '../../src/config.js';
 use(sinonChai);
 
 describe('Test validation rules strings generation', () => {
     before(() => {
         sinon.stub(console, 'error');
+    });
+
+    // Make sure that there is a generator function for each defined validation function
+    it('Should be defined for each validation function', () => {
+        const functions = Object.keys(validationFunctions);
+        functions.forEach(f => {
+            expect(rules[f]).to.not.be.undefined;
+        });
     });
 
     describe('No parameter rules', () => {
