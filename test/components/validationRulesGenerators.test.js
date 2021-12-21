@@ -1,8 +1,8 @@
 import { assert, expect, use } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import {rules} from '../src/components/validationRulesGenerators.js';
-import {CONFIG} from '../src/config.js';
+import {rules} from '../../src/components/validationRulesGenerators.js';
+import {CONFIG} from '../../src/config.js';
 use(sinonChai);
 
 describe('Test validation rules strings generation', () => {

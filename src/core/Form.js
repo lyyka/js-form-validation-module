@@ -1,5 +1,5 @@
 import Field from './Field';
-import {defaultOptions} from './../../options.js';
+import {defaultOptions} from '../options.js';
 
 export default class Form {
     /**

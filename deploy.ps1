@@ -20,6 +20,14 @@ if(! $null -eq $suppressOutput) {
     $suppressOutput = '>$null'
 }
 
+PrintMessage "Testing source files..."
+npm test $suppressOutput
+
+if(! $?) {
+    PrintMessage "Test are failing" "Red"
+    Break
+}
+
 PrintMessage "Building main module..."
 npm run build $suppressOutput
 

@@ -1,5 +1,6 @@
-import {defaultValidationMessages} from '../../components/validationMessages';
-import {validateField} from '../validateField';
+import {defaultValidationMessages} from '../components/validationMessages';
+import {validationFunctions} from '../components/validationFunctions.js';
+import {CONFIG} from '../config.js';
 
 export default class Field {
     /**
@@ -8,6 +9,7 @@ export default class Field {
      */
     constructor(field) {
         this.field = field;
+        
         this.form = undefined;
         this.options = undefined;
         this.validationRules = undefined;
@@ -22,6 +24,7 @@ export default class Field {
         this.getFieldElement = this.getFieldElement.bind(this);
         this.reset = this.reset.bind(this);
         this.validate = this.validate.bind(this);
+        this.getReadableName = this.getReadableName.bind(this);
         this.attachValidationMessageLabel = this.attachValidationMessageLabel.bind(this);
         this.onInput = this.onInput.bind(this);
         this.bindInputListener = this.bindInputListener.bind(this);
@@ -85,6 +88,18 @@ export default class Field {
     }
 
     /**
+     * Convert name attribute to readable name
+     * @returns {String}
+     */
+    getReadableName() {
+        // field_name -> field name
+        let readableName = this.getFieldName().split('_').join(' ');
+        
+        // capitalize the name
+        return readableName.charAt(0).toUpperCase() + readableName.slice(1);
+    }
+
+    /**
      * Resets the field, it removes the validation message from fields parent element and removes fields classess for valid/invalid state
      */
     reset() {
@@ -104,7 +119,44 @@ export default class Field {
      * @returns {boolean} 
      */
     validate() {
-        this.isValid = validateField(this);
+        // Assume field is valid (if no rules are defined)
+        this.isValid = true;
+
+        // Get an array of validation rules based on field name
+        let validation = this.getValidationRules();
+
+        // Check if rules actually exists
+        if(validation) {
+            // Filter out rules that are not of string type
+            validation = validation.filter(v => typeof v === 'string');
+
+            // Go through each rule and validate the fields value against them
+            for(const rule of validation) {
+                let validatorName = rule;
+                let parametersForValidator = undefined;
+
+                if(rule.includes(CONFIG.parametrizedValidatorSeparator)) { // Handle parametrized rules with ':' that need to be split into fn (before ':') and parameters (after ':')
+                    const parts = rule.split(CONFIG.parametrizedValidatorSeparator);
+                    validatorName = parts[0];
+                    parametersForValidator = parts[1].split(CONFIG.parametrizedValidatorParametersSeparator);
+                }
+                
+                const fn = validationFunctions[validatorName];
+                if(fn) {
+                    this.isValid = fn(this.getFieldElement().value, parametersForValidator);
+                } else {
+                    throw new Error(`Validator '${validatorName}' does not exist!`);
+                }
+
+                // Break as soon as possible if invalid, do not check other validators
+                if(!this.isValid) {
+                    if(!this.options.silent) {
+                        this.attachValidationMessageLabel(validatorName,parametersForValidator);
+                    }
+                    break;
+                }
+            }
+        }
 
         if(!this.options.silent) {
             const classToAdd = this.isValid ? this.options.validClass : this.options.invalidClass;
@@ -124,8 +176,7 @@ export default class Field {
             const name = this.getFieldName();
             const validationMessages = this.options.validationMessages || {};
     
-            let readableName = name.split('_').join(' '); // field_name -> field name
-            readableName = readableName.charAt(0).toUpperCase() + readableName.slice(1); // capitalize the name
+            let readableName = this.getReadableName();
             const customMessage = validationMessages[name] ? validationMessages[name][validatorName] : undefined;
             const finalMessage = customMessage || defaultValidationMessages[validatorName](readableName, parametersForValidator); // get the translation based on validator name if custom message is not defined
     
