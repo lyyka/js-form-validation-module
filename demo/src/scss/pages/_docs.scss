@@ -1,14 +1,27 @@
 @import '../colors';
+@import '../responsive';
 @import '../components/code_embeds';
+
+$mobileBreakpoint: mobile;
 
 .docs-layout {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 
+    @include breakpoint($mobileBreakpoint) {
+        display: block;
+    }
+
     &--sidebar {
         border-right: 1px solid $color-E5;
         padding: 0 20px;
         grid-column: 1;
+
+        @include breakpoint($mobileBreakpoint) {
+            margin-bottom: 40px;
+            border-right: 0;
+            border-bottom: 1px solid $color-E5;
+        }
 
         & > ol {
             position: sticky;
@@ -34,6 +47,10 @@
     &--main-content {
         padding: 0 20px;
         grid-column: 2 / 5;
+
+        @include breakpoint($mobileBreakpoint) {
+            padding: 0;
+        }
     }
 
     &--section-title {
@@ -61,6 +78,11 @@
     &--table {
         width: 100%;
         border-collapse: collapse;
+
+        &-wrapper {
+            max-width: 100%;
+            overflow-y: auto;
+        }
 
         th, td {
             border: 1px solid #e5e5e5;
