@@ -9,7 +9,7 @@
         <script defer src="https://unpkg.com/alpinejs@3.7.1/dist/cdn.min.js"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
-    <link href="../docsPage.86e4c2f4c0787126fc12.css" rel="stylesheet"></head>
+    <link href="../docsPage.61f7fb785c199d2e20a1.css" rel="stylesheet"></head>
     <body>
         <nav>
             <div class="navbar">
@@ -460,108 +460,110 @@ const form = new Form(formElement);</code></pre>
                             <h3 id="validating-your-form-available-options" class="docs-layout--section-title docs-layout--section-title--h3 underline-blue">
                                 # Available options
                             </h3>
-                            <table class="docs-layout--table">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Default value</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            validationMessages
-                                        </td>
-                                        <td>
-                                            {}
-                                        </td>
-                                        <td>
-                                            Module defines default validation messages to be printed out below fields when field is invalid.
-                                            <br/>
-                                            You can also define your own custom messages like so:
-                                            <br/>
-                                            <p>
-                                                <pre><code class="language-javascript">{
-    fieldName: {
-        required: 'This message prints out when field with name "fieldName" failes "required" validation rule.'
-    }
-};</code></pre>
-                                            </p>
-                                            The logic is same for any field name and any available validation rule.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            silent
-                                        </td>
-                                        <td>
-                                            <code class="inline-custom">false</code>
-                                        </td>
-                                        <td>
-                                            By default, module will apply some classes to the invalid fields and will append validation messages to their parent containers.
-                                            <br/>
-                                            You can change this behaviour with this option.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            invalidClass
-                                        </td>
-                                        <td>
-                                            <code class="inline-custom">invalid</code>
-                                        </td>
-                                        <td>
-                                            This class will be applied to the input fields when they are invalid.
-                                            <br/>
-                                            <strong>This will only work when silent option is false.</strong>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            validClass
-                                        </td>
-                                        <td>
-                                            <code class="inline-custom">valid</code>
-                                        </td>
-                                        <td>
-                                            This class will be applied to the input fields when they are valid.
-                                            <br/>
-                                            <strong>This will only work when silent option is false.</strong>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            validationMessageColor
-                                        </td>
-                                        <td>
-                                            <code class="inline-custom">red</code>
-                                        </td>
-                                        <td>
-                                            This color will be applied to validation messages when they get printed out.
-                                            <br/>
-                                            You can pass any valid CSS color format.
-                                            <br/>
-                                            <strong>This will only work when silent option is false.</strong>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            live
-                                        </td>
-                                        <td>
-                                            <code class="inline-custom">true</code>
-                                        </td>
-                                        <td>
-                                            This will tell the module to validate your field as you type.
-                                            <br/>
-                                            This can be paired with silent option set to false to automatically change the styling and append validation messages as you type.
-                                            <br/>
-                                            <strong>Form object callbacks</strong> will also get fired each time the field is validated when live. This is used on our <a href="./demo.html">demo</a> page.
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="docs-layout--table-wrapper">
+                                <table class="docs-layout--table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Default value</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                validationMessages
+                                            </td>
+                                            <td>
+                                                {}
+                                            </td>
+                                            <td>
+                                                Module defines default validation messages to be printed out below fields when field is invalid.
+                                                <br/>
+                                                You can also define your own custom messages like so:
+                                                <br/>
+                                                <p>
+                                                    <pre><code class="language-javascript">{
+        fieldName: {
+            required: 'This message prints out when field with name "fieldName" failes "required" validation rule.'
+        }
+    };</code></pre>
+                                                </p>
+                                                The logic is same for any field name and any available validation rule.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                silent
+                                            </td>
+                                            <td>
+                                                <code class="inline-custom">false</code>
+                                            </td>
+                                            <td>
+                                                By default, module will apply some classes to the invalid fields and will append validation messages to their parent containers.
+                                                <br/>
+                                                You can change this behaviour with this option.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                invalidClass
+                                            </td>
+                                            <td>
+                                                <code class="inline-custom">invalid</code>
+                                            </td>
+                                            <td>
+                                                This class will be applied to the input fields when they are invalid.
+                                                <br/>
+                                                <strong>This will only work when silent option is false.</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                validClass
+                                            </td>
+                                            <td>
+                                                <code class="inline-custom">valid</code>
+                                            </td>
+                                            <td>
+                                                This class will be applied to the input fields when they are valid.
+                                                <br/>
+                                                <strong>This will only work when silent option is false.</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                validationMessageColor
+                                            </td>
+                                            <td>
+                                                <code class="inline-custom">red</code>
+                                            </td>
+                                            <td>
+                                                This color will be applied to validation messages when they get printed out.
+                                                <br/>
+                                                You can pass any valid CSS color format.
+                                                <br/>
+                                                <strong>This will only work when silent option is false.</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                live
+                                            </td>
+                                            <td>
+                                                <code class="inline-custom">true</code>
+                                            </td>
+                                            <td>
+                                                This will tell the module to validate your field as you type.
+                                                <br/>
+                                                This can be paired with silent option set to false to automatically change the styling and append validation messages as you type.
+                                                <br/>
+                                                <strong>Form object callbacks</strong> will also get fired each time the field is validated when live. This is used on our <a href="./demo.html">demo</a> page.
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
