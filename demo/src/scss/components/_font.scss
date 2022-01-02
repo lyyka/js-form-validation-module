@@ -18,23 +18,23 @@ h6 {
 }
 
 h1 {
-	@include font-size(40);
+	@include font-size(40, 48);
 }
 
 h2 {
-	@include font-size(34);
+	@include font-size(34, 42);
 }
 
 h3 {
-	@include font-size(28);
+	@include font-size(28, 36);
 }
 
 h4 {
-	@include font-size(24);
+	@include font-size(24, 32);
 }
 
 h5 {
-	@include font-size(20);
+	@include font-size(20, 28);
 }
 
 p {
