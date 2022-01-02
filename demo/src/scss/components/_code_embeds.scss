@@ -1,0 +1,34 @@
+$syntax-block-background-color: #{$color-blue}1c;
+$syntax-function-color: $color-blue;
+$syntax-numbers-and-strings-color: #1a5822;
+
+pre {
+    margin: 16px 0;
+}
+
+code {
+    margin: 0;
+    padding: 0;
+
+    &.inline-custom {
+        background: $syntax-block-background-color !important;
+        color: $color-text !important;
+        padding: 2px 4px;
+        border-radius: 4px;
+    }
+
+    &.hljs {
+        border-radius: 12px;
+        background: $syntax-block-background-color !important;
+        color: $color-text !important;
+        padding: 12px 20px !important;
+    }
+}
+
+.hljs-string, .hljs-number {
+    color: $syntax-numbers-and-strings-color;
+}
+
+.hljs-title.function_ {
+    color: $syntax-function-color;
+}

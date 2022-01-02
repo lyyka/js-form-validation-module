@@ -8,6 +8,7 @@ module.exports = {
     entry: {
         indexPage: './src/js/indexPage.js',
         demoPage: './src/js/demoPage.js',
+        docsPage: './src/js/docsPage.js',
     },
     output: {
         filename: '[name].[contenthash].bundle.js',
@@ -28,6 +29,14 @@ module.exports = {
             minify: false,
             inject: 'body',
             chunks: ['demoPage'],
+        }),
+        
+        new HtmlWebpackPlugin({
+            filename: 'pages/docs.html',
+            template: './pages/docs.html',
+            minify: false,
+            inject: 'body',
+            chunks: ['docsPage'],
         }),
 
         new MiniCssExtractPlugin({

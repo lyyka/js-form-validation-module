@@ -18,11 +18,23 @@ h6 {
 }
 
 h1 {
-	@include font-size(32);
+	@include font-size(40);
 }
 
 h2 {
+	@include font-size(34);
+}
+
+h3 {
+	@include font-size(28);
+}
+
+h4 {
 	@include font-size(24);
+}
+
+h5 {
+	@include font-size(20);
 }
 
 p {
@@ -33,11 +45,15 @@ p {
 }
 
 a {
-	color: $color-text;
+	color: $color-blue;
 	text-decoration: none;
 
-	&:hover {
-		text-decoration: none;
-		color: $color-purple;
+	&.reset-color {
+		color: $color-text;
 	}
+}
+
+.underline-blue {
+	display: inline-block;
+	background: linear-gradient(0deg, #{$color-blue}9e 0%, #{$color-blue}9e 40%, white 40%, white 100%);
 }

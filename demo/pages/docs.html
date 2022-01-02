@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JS form validation module | Documentation</title>
+
+        <script defer src="https://unpkg.com/alpinejs@3.7.1/dist/cdn.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
+    </head>
+    <body>
+        <nav>
+            <div class="navbar">
+                <div class="navbar--content">
+                    <div class="navbar--content__logo-wrapper">
+
+                    </div>
+                    <div class="navbar--content__links-wrapper">
+                        <a href="../index.html">
+                            Home
+                        </a>
+                        <a href="./demo.html">
+                            Demo
+                        </a>
+                        <a href="#">
+                            Documentation
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <section class="section">
+                <div class="container">
+                    <a href="../index.html" class="back-link">
+                        < Home
+                    </a>
+                    <h1>
+                        Documentation
+                    </h1>
+                    <p>
+                        On this page you can take a look at how this module works and how you can implement it in your project.
+                    </p>
+                </div>
+            </section>
+
+            <section 
+            x-data="{activeTab:'gettingStarted'}" 
+            class="section">
+                <div class="container docs-layout">
+                    <div class="docs-layout--sidebar">
+                        <ol>
+                            <li 
+                            x-bind:class="activeTab==='gettingStarted' ? 'active' : ''"
+                            @click="activeTab='gettingStarted'">
+                                Getting started
+                            </li>
+                            <li class="sublist" x-show="activeTab==='gettingStarted'">
+                                <ol>
+                                    <li><a class="reset-color" href="#getting-started-installing">Getting started</a></li>
+                                    <li><a class="reset-color" href="#getting-started-including-module-in-your-project">
+                                        Including module in your project
+                                    </a></li>
+                                </ol>
+                            </li>
+                            <li 
+                            x-bind:class="activeTab==='availableValidationRules' ? 'active' : ''"
+                            @click="activeTab='availableValidationRules'">
+                                Available validation rules
+                            </li>
+                            <li class="sublist" x-show="activeTab==='availableValidationRules'">
+                                <ol>
+                                    <li><a class="reset-color" href="#available-rules-example">Example</a></li>
+                                    <li><a class="reset-color" href="#error-handling">
+                                        Error handling
+                                    </a></li>
+                                    <li><a class="reset-color" href="#rules-priority">
+                                        Rules priority
+                                    </a></li>
+                                    <li><a class="reset-color" href="#conditionally-appending-rules">
+                                        Conditionally appending rules
+                                    </a></li>
+                                    <li><a class="reset-color" href="#available-methods-for-generating-rules">
+                                        Available methods for generating rules
+                                    </a></li>
+                                </ol>
+                            </li>
+                            <li 
+                            x-bind:class="activeTab==='validatingYourForm' ? 'active' : ''"
+                            @click="activeTab='validatingYourForm'">
+                                Validating your form
+                            </li>
+                            <li class="sublist" x-show="activeTab==='validatingYourForm'">
+                                <ol>
+                                    <li><a class="reset-color" href="#validating-your-form-example">Example</a></li>
+                                    <li><a class="reset-color" href="#validating-your-form-instance">
+                                        Form instance
+                                    </a></li>
+                                    <li><a class="reset-color" href="#validating-your-form-available-options">
+                                        Available options
+                                    </a></li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="docs-layout--main-content">
+                        <div x-show="activeTab==='gettingStarted'">
+                            <h2 class="text-blue">
+                                Getting started
+                            </h2>
+                            <h3 id="getting-started-installing" class="docs-layout--section-title docs-layout--section-title--h3 underline-blue">
+                                # Installing
+                            </h3>
+                            <p>
+                                Currently, only supported way of implementing this module in your project is by installing it via node package manager.
+                            </p>
+                            <h4>
+                                Via NPM
+                            </h4>
+                            <pre><code class="language-bash">npm install js-form-validation-module</code></pre>
+                            
+                            <h3 id="getting-started-including-module-in-your-project" class="docs-layout--section-title docs-layout--section-title--h3 underline-blue">
+                                # Including module in your project
+                            </h3>
+                            <h4 class="docs-layout--section-title docs-layout--section-title--h4">
+                                ES6 imports
+                            </h4>
+                            <p>
+                                Module exports two things in an object:
+                            </p>
+                            <ol>
+                                <li>
+                                    <code class="inline-custom">
+                                        Form
+                                    </code> object which can be instantiated and which is the main interface for validating the form
+                                </li>
+                                <li>
+                                    <code class="inline-custom">
+                                        rules
+                                    </code> object which contains functions for generating validation rules strings. <a href="#" @click="activeTab='availableValidationRules'">Read more about available rules &gt;</a>
+                                </li>
+                            </ol>
+                            <p>
+                                So to include both of these, you would do:
+                            </p>
+                            <pre><code class="language-javascript">import {Form, rules} from 'js-form-validation-module'</code></pre>
+                        </div>
+                        <div x-show="activeTab==='availableValidationRules'">
+                            <h2 class="text-blue">
+                                Available validation rules
+                            </h2>
+                            <p>
+                                Core of this module provides you with couple of validation rules that should enable you to quickly set up validation on your form.
+                            </p>
+                            <h3 id="available-rules-example" class="docs-layout--section-title docs-layout--section-title--h3 underline-blue">
+                                # Example
+                            </h3>
+                            <pre><code class="language-javascript">import {rules} from 'js-form-validation-module'
+const validationRules = {
+    full_name: [
+        rules.required(),
+        rules.string(),
+        rules.minStrLen(4),
+    ],
+}</code></pre>
+                            <p>
+                                In the example above, using modules helper functions for rules generations, we defined that a field with <code class="inline-custom">full_name</code> must be filled, have a string type of value, and be at least 4 characters long.
+                            </p>
+                            <h4 class="docs-layout--section-title docs-layout--section-title--h4">
+                                Alternate way of defining the rules
+                            </h4>
+                            <p>
+                                Another way of writing the same as above would be to use strings directly, without calling helper functions module provides. <strong>This is discouraged as it increases a chance of error, and modules functions are 100% sure to work as expected.</strong>
+                            </p>
+                            <pre><code class="language-javascript">const validationRules = {
+    full_name: [
+        'required',
+        'string',
+        'minStrLen:4',
+    ],
+}</code></pre>
+                            <h3 id="error-handling" class="docs-layout--section-title docs-layout--section-title--h3 underline-blue">
+                                # Error handling
+                            </h3>
+                            <h4 class="docs-layout--section-title docs-layout--section-title--h4">
+                                Passing wrong data to rule generator functions
+                            </h4>
+                            <pre><code class="language-javascript">const validationRules = {
+    full_name: [
+        rules.minStrLen('this is not a number')
+    ],
+}</code></pre>
+                            <p>
+                                If above scenario happens, module won't throw an explicit error, but will simply log to console that you tried to pass invalid value to the function.
+                            </p>
+                            <h4 class="docs-layout--section-title docs-layout--section-title--h4">
+                                Using validators that do not exist
+                            </h4>
+                            <pre><code class="language-javascript">const validationRules = {
+    full_name: [
+        'validator-name-that-does-not-exist'
+    ],
+}</code></pre>
+                            <p>
+                                If you happen to prefer to write your rules as strings, it may happen that you miss a letter, and accidentally define a rule that is not defined in the module. In this case, module will throw an explicit exception with a proper message to console.
+                            </p>
+
+                            <h3 id="rules-priority" class="docs-layout--section-title docs-layout--section-title--h3 underline-blue">
+                                # Rules priority
+                            </h3>
+                            <p>
+                                Rules for each field are checked in order you define them.
+                            </p>
+                            <p>
+                                Going from first to last rule, <strong>validator will stop validating the field as soon as it reaches a rule that is not met</strong>.
+                            </p>
+                            <p>
+                                This means that the validation message of that first failing rule will be used.
+                            </p>
+
+                            <h3 id="conditionally-appending-rules" class="docs-layout--section-title docs-layout--section-title--h3 underline-blue">
+                                # Conditionally appending rules
+                            </h3>
+                            <p>You may want to append some rules based on some condition. You can do this in pure Javascript, by merging two objects together. For example:</p>
+                            <pre><code class="language-javascript">import {rules} from 'js-form-validation-module'
+const baseRules = {
+    full_name: [
+        rules.required(),
+        rules.string(),
+    ],
+}
+if(criteriaIsMet) {
+    baseRules = {
+        ...baseRules,
+        anotherField: [
+            rules.required(),
+        ],
+    };
+}</code></pre>
+                            <p>
+                                Because rules are passed to the module at the point of initialization, you are free to change them as much you want before that.
+                            </p>
+                            <p>
+                                <strong>
+                                    At this point, module does not provide any custom functions that will automate this process.
+                                </strong>
+                            </p>
+                            <h3 id="available-methods-for-generating-rules" class="docs-layout--section-title docs-layout--section-title--h3 underline-blue">
+                                # Available methods for generating rules
+                            </h3>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    rules.required()
+                                </code>
+                            </h5>
+                            <p>
+                                Will validate if the field is filled and has any value.
+                            </p>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    rules.string()
+                                </code>
+                            </h5>
+                            <p>
+                                Will validate if the field contains a value of type string.
+                            </p>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    rules.email()
+                                </code>
+                            </h5>
+                            <p>
+                                Will validate if the field contains a value with proper email formatting by passing it through regex.
+                            </p>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    rules.minStrLen(number)
+                                </code>
+                            </h5>
+                            <p>
+                                Will validate if the field contains a string with minimum desired length.
+                            </p>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    rules.maxStrLen(number)
+                                </code>
+                            </h5>
+                            <p>
+                                Will validate if the field contains a string with maximum desired length.
+                            </p>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    rules.in(array)
+                                </code>
+                            </h5>
+                            <p>
+                                Will validate if the field contains a value that is inside given array.
+                            </p>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    rules.between([x1, x2])
+                                </code>
+                            </h5>
+                            <p>
+                                Will validate if the field contains a value that is between x1 and x2.
+                            </p>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    rules.gt(x)
+                                </code>
+                            </h5>
+                            <p>
+                                Will validate if the field contains a value that is strictly greater then x.
+                            </p>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    rules.gte(x)
+                                </code>
+                            </h5>
+                            <p>
+                                Will validate if the field contains a value that is greater or equal to x.
+                            </p>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    rules.lt(x)
+                                </code>
+                            </h5>
+                            <p>
+                                Will validate if the field contains a value that is strictyl less then x.
+                            </p>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    rules.lte(x)
+                                </code>
+                            </h5>
+                            <p>
+                                Will validate if the field contains a value that is less or equal to x.
+                            </p>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    rules.date(value)
+                                </code>
+                            </h5>
+                            <p>
+                                Will validate if the field contains a value that is formatted as date.
+                            </p>
+                        </div>
+                        <div x-show="activeTab==='validatingYourForm'">
+                            <h2 class="text-blue">
+                                Validating your form
+                            </h2>
+                            <p>
+                                In order to validate your form, you will need to combine both exported objects from the module.
+                            </p>
+                            <h3 id="validating-your-form-example" class="docs-layout--section-title docs-layout--section-title--h3 underline-blue">
+                                # Example
+                            </h3>
+                            <pre><code class="language-javascript">const validationRules = {
+    full_name: [
+        rules.required(),
+        rules.string(),
+    ],
+};
+const formElement = document.querySelector("#form");
+const form = (new Form(formElement)).initialize(validationRules).validate();</code></pre>
+                            <p>
+                                From this simple example, you can see that you need to create new <code class="inline-custom">Form</code> object, call the initialization function with the earlier defined validation rules which will actually gather all form fields, and then call the <code class="inline-custom">validate()</code>  method.
+                            </p>
+                            <h3 id="validating-your-form-instance" class="docs-layout--section-title docs-layout--section-title--h3 underline-blue">
+                                # <code class="inline-custom">Form</code> instance
+                            </h3>
+                            <h4 class="docs-layout--section-title docs-layout--section-title--h4">
+                                Constructor
+                            </h4>
+                            <p>
+                                Constructor expects an HTML element object that should be the form you are validating.
+                            </p>
+                            <pre><code class="language-javascript">const formElement = document.querySelector("#form");
+const form = new Form(formElement);</code></pre>
+                            <h4 class="docs-layout--section-title docs-layout--section-title--h4">
+                                Available methods
+                            </h4>
+                            <p>
+                                It has more methods that will help you interact with the form instance.
+                            </p>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    initialize(rules: Object, options: Object)
+                                </code>
+                            </h5>
+                            <p>
+                                <strong>What it does:</strong> Based on the form, selects all fields inside that form, converts them to an object that is used during validation process, and stores them as an array in form class.
+                            </p>
+                            <p>
+                                <strong>Receives</strong>
+                            </p>
+                            <ul>
+                                <li>
+                                    <code class="inline-custom">rules</code>: An object containing an array of validation rules for each field
+                                </li>
+                                <li>
+                                    <code class="inline-custom">options</code>: This is an optional parameter. It is used to override some of the default options for validation.
+                                </li>
+                            </ul>
+                            <p>
+                                <strong>Returns:</strong> <code class="inline-custom">Form</code> instance it was called on
+                            </p>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    validate()
+                                </code>
+                            </h5>
+                            <p>
+                                <strong>What it does:</strong> Goes through all fields in the form, validates them based on the validation rules you passed in, and returns the result of that validation as an object.
+                            </p>
+                            <p>
+                                <strong>Returns:</strong>
+                                <pre><code class="language-javascript">{
+    validFields: Object,
+    isValid: Boolean,
+};</code></pre>
+                            </p>
+                            <p>
+                                <code class="inline-custom">validFields</code> is an array of html element fields that have passed the validation.
+                            </p>
+                            <p>
+                                <code class="inline-custom">isValid</code> is a boolean value indicating whether the form is valid or not.
+                            </p>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    onValid(callback: Function)
+                                </code>
+                            </h5>
+                            <p>
+                                <strong>What it does:</strong> Defines a callback function to be called when the form passes the validation (i.e. user clicks the button and form is valid).
+                                <br/>
+                                The callback will receive the form object as parameter.
+                            </p>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    onInvalid(callback: Function)
+                                </code>
+                            </h5>
+                            <p>
+                                <strong>What it does:</strong> Defines a callback function to be called when the form does not pass the validation (i.e. user clicks the button and form is not valid).
+                                <br/>
+                                The callback will receive the form object as parameter.
+                            </p>
+                            <h5 class="docs-layout--section-title docs-layout--section-title--h5">
+                                <code class="inline-custom">
+                                    destroy()
+                                </code>
+                            </h5>
+                            <p>
+                                <strong>What it does:</strong> Removes input event listener from all of the forms fields.
+                            </p>
+                            <h3 id="validating-your-form-available-options" class="docs-layout--section-title docs-layout--section-title--h3 underline-blue">
+                                # Available options
+                            </h3>
+                            <table class="docs-layout--table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Default value</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            validationMessages
+                                        </td>
+                                        <td>
+                                            {}
+                                        </td>
+                                        <td>
+                                            Module defines default validation messages to be printed out below fields when field is invalid.
+                                            <br/>
+                                            You can also define your own custom messages like so:
+                                            <br/>
+                                            <p>
+                                                <pre><code class="language-javascript">{
+    fieldName: {
+        required: 'This message prints out when field with name "fieldName" failes "required" validation rule.'
+    }
+};</code></pre>
+                                            </p>
+                                            The logic is same for any field name and any available validation rule.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            silent
+                                        </td>
+                                        <td>
+                                            <code class="inline-custom">false</code>
+                                        </td>
+                                        <td>
+                                            By default, module will apply some classes to the invalid fields and will append validation messages to their parent containers.
+                                            <br/>
+                                            You can change this behaviour with this option.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            invalidClass
+                                        </td>
+                                        <td>
+                                            <code class="inline-custom">invalid</code>
+                                        </td>
+                                        <td>
+                                            This class will be applied to the input fields when they are invalid.
+                                            <br/>
+                                            <strong>This will only work when silent option is false.</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            validClass
+                                        </td>
+                                        <td>
+                                            <code class="inline-custom">valid</code>
+                                        </td>
+                                        <td>
+                                            This class will be applied to the input fields when they are valid.
+                                            <br/>
+                                            <strong>This will only work when silent option is false.</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            validationMessageColor
+                                        </td>
+                                        <td>
+                                            <code class="inline-custom">red</code>
+                                        </td>
+                                        <td>
+                                            This color will be applied to validation messages when they get printed out.
+                                            <br/>
+                                            You can pass any valid CSS color format.
+                                            <br/>
+                                            <strong>This will only work when silent option is false.</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            live
+                                        </td>
+                                        <td>
+                                            <code class="inline-custom">true</code>
+                                        </td>
+                                        <td>
+                                            This will tell the module to validate your field as you type.
+                                            <br/>
+                                            This can be paired with silent option set to false to automatically change the styling and append validation messages as you type.
+                                            <br/>
+                                            <strong>Form object callbacks</strong> will also get fired each time the field is validated when live. This is used on our <a href="./demo.html">demo</a> page.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js" integrity="sha512-Pbb8o120v5/hN/a6LjF4N4Lxou+xYZ0QcVF8J6TWhBbHmctQWd8O6xTDmHpE/91OjPzCk4JRoiJsexHYg4SotQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            hljs.highlightAll();
+        </script>
+    </body>
+</html>

@@ -1,32 +1,42 @@
 @import '../colors';
 
 nav {
-    position: sticky;
-    top: 0;
+    z-index: 9999;
 }
 
 .navbar {
     border-bottom: 1px solid $color-E5;
     padding: 12px 20px;
     background: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    & > &__logo-wrapper > img {
-        height: 64px;
-    }
-
-    & > &__links-wrapper {
+    
+    &--content {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        width: 1190px;
+        max-width: 100%;
+        margin: 0 auto;
 
-        a {
-            display: inline-block;
+        & > &__logo-wrapper > img {
+            height: 64px;
+        }
+    
+        & > &__links-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+    
+            a {
+                color: $color-text;
+                display: inline-block;
+    
+                &:hover {
+                    color: $color-blue;
+                }
 
-            & + a {
-                margin-left: 14px;
+                & + a {
+                    margin-left: 14px;
+                }
             }
         }
     }

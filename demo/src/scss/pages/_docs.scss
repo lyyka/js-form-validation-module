@@ -1,0 +1,70 @@
+@import '../colors';
+@import '../components/code_embeds';
+
+.docs-layout {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    &--sidebar {
+        border-right: 1px solid $color-E5;
+        padding: 0 20px;
+        grid-column: 1;
+
+        & > ol {
+            position: sticky;
+            top: 64px;
+            margin: 0;
+            padding: 0;
+
+            li {
+                cursor: pointer;
+                margin-bottom: 16px;
+
+                &.sublist {
+                    list-style-type: none;
+                }
+
+                &.active, &:hover, &.active > a, &:hover > a {
+                    color: $color-blue;
+                }
+            }
+        }
+    }
+
+    &--main-content {
+        padding: 0 20px;
+        grid-column: 2 / 5;
+    }
+
+    &--section-title {
+        &--h3 {
+            margin-top: 36px;
+        }
+
+        &--h4 {
+            margin-top: 30px;
+        }
+
+        &--h4 {
+            margin-top: 26px;
+        }
+
+        &--h5 {
+            margin-top: 24px;
+        }
+
+        &.no-margin-bottom {
+            margin-bottom: 0;
+        }
+    }
+
+    &--table {
+        width: 100%;
+        border-collapse: collapse;
+
+        th, td {
+            border: 1px solid #e5e5e5;
+            padding: 8px 16px;
+        }
+    }
+}
